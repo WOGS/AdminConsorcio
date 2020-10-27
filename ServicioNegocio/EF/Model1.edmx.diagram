@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6dc507cd382f4574b3c99400e59db7da" Name="Diagram1">
+        <EntityTypeShape EntityType="PW3_TP_20202CModel.Consorcio" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PW3_TP_20202CModel.Gasto" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PW3_TP_20202CModel.Provincia" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PW3_TP_20202CModel.TipoGasto" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PW3_TP_20202CModel.Unidad" Width="1.5" PointX="8.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="PW3_TP_20202CModel.Usuario" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <AssociationConnector Association="PW3_TP_20202CModel.FK_Consorcio_Consorcio" ManuallyRouted="false" />
+        <AssociationConnector Association="PW3_TP_20202CModel.FK_Consorcio_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="PW3_TP_20202CModel.FK_Gasto_Consorcio" ManuallyRouted="false" />
+        <AssociationConnector Association="PW3_TP_20202CModel.FK_Unidad_Consorcio" ManuallyRouted="false" />
+        <AssociationConnector Association="PW3_TP_20202CModel.FK_Gasto_TipoGasto" ManuallyRouted="false" />
+        <AssociationConnector Association="PW3_TP_20202CModel.FK_Gasto_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="PW3_TP_20202CModel.FK_Unidad_Usuario" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

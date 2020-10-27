@@ -1,0 +1,43 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <title>Formulario de Alta</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="~/CSS/Style.css">
+    </head>
+    <body>
+        <div class="container" id="registration-form">
+            <div class="image"></div>
+            <div class="frm">
+                <h1>Alta usuario</h1>
+                <form action="Alta" method="post">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="Email" class="form-control" id="Email" name="Email" placeholder="Ingrese Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="Password" class="form-control" id="Password" name="Password" placeholder="Ingrese password">
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Re-ingresasr Password:</label>
+                        <input type="text" class="form-control" id="Password2" name="Password2" placeholder="Re-Ingrese password">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-lg">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,509 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PW3_TP_20202CModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Consorcio">
+          <Key>
+            <PropertyRef Name="IdConsorcio" />
+          </Key>
+          <Property Name="IdConsorcio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IdProvincia" Type="int" Nullable="false" />
+          <Property Name="Ciudad" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Calle" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Altura" Type="int" Nullable="false" />
+          <Property Name="DiaVencimientoExpensas" Type="int" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="IdUsuarioCreador" Type="int" />
+        </EntityType>
+        <EntityType Name="Gasto">
+          <Key>
+            <PropertyRef Name="IdGasto" />
+          </Key>
+          <Property Name="IdGasto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="IdConsorcio" Type="int" Nullable="false" />
+          <Property Name="IdTipoGasto" Type="int" Nullable="false" />
+          <Property Name="FechaGasto" Type="datetime" Nullable="false" />
+          <Property Name="AnioExpensa" Type="int" Nullable="false" />
+          <Property Name="MesExpensa" Type="int" Nullable="false" />
+          <Property Name="ArchivoComprobante" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Monto" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="IdUsuarioCreador" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Provincia">
+          <Key>
+            <PropertyRef Name="IdProvincia" />
+          </Key>
+          <Property Name="IdProvincia" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoGasto">
+          <Key>
+            <PropertyRef Name="IdTipoGasto" />
+          </Key>
+          <Property Name="IdTipoGasto" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Unidad">
+          <Key>
+            <PropertyRef Name="IdUnidad" />
+          </Key>
+          <Property Name="IdUnidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdConsorcio" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="NombrePropietario" Type="nvarchar" MaxLength="200" />
+          <Property Name="ApellidoPropietario" Type="nvarchar" MaxLength="200" />
+          <Property Name="EmailPropietario" Type="nvarchar" MaxLength="500" />
+          <Property Name="Superficie" Type="int" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="IdUsuarioCreador" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaRegistracion" Type="datetime" Nullable="false" />
+          <Property Name="FechaUltLogin" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Consorcio_Consorcio">
+          <End Role="Provincia" Type="Self.Provincia" Multiplicity="1" />
+          <End Role="Consorcio" Type="Self.Consorcio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincia">
+              <PropertyRef Name="IdProvincia" />
+            </Principal>
+            <Dependent Role="Consorcio">
+              <PropertyRef Name="IdProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Consorcio_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Consorcio" Type="Self.Consorcio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Consorcio">
+              <PropertyRef Name="IdUsuarioCreador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gasto_Consorcio">
+          <End Role="Consorcio" Type="Self.Consorcio" Multiplicity="1" />
+          <End Role="Gasto" Type="Self.Gasto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consorcio">
+              <PropertyRef Name="IdConsorcio" />
+            </Principal>
+            <Dependent Role="Gasto">
+              <PropertyRef Name="IdConsorcio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gasto_TipoGasto">
+          <End Role="TipoGasto" Type="Self.TipoGasto" Multiplicity="1" />
+          <End Role="Gasto" Type="Self.Gasto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoGasto">
+              <PropertyRef Name="IdTipoGasto" />
+            </Principal>
+            <Dependent Role="Gasto">
+              <PropertyRef Name="IdTipoGasto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gasto_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Gasto" Type="Self.Gasto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Gasto">
+              <PropertyRef Name="IdUsuarioCreador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Unidad_Consorcio">
+          <End Role="Consorcio" Type="Self.Consorcio" Multiplicity="1" />
+          <End Role="Unidad" Type="Self.Unidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consorcio">
+              <PropertyRef Name="IdConsorcio" />
+            </Principal>
+            <Dependent Role="Unidad">
+              <PropertyRef Name="IdConsorcio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Unidad_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Unidad" Type="Self.Unidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Unidad">
+              <PropertyRef Name="IdUsuarioCreador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PW3_TP_20202CModelStoreContainer">
+          <EntitySet Name="Consorcio" EntityType="Self.Consorcio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gasto" EntityType="Self.Gasto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoGasto" EntityType="Self.TipoGasto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unidad" EntityType="Self.Unidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Consorcio_Consorcio" Association="Self.FK_Consorcio_Consorcio">
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Consorcio" EntitySet="Consorcio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Consorcio_Usuario" Association="Self.FK_Consorcio_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Consorcio" EntitySet="Consorcio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gasto_Consorcio" Association="Self.FK_Gasto_Consorcio">
+            <End Role="Consorcio" EntitySet="Consorcio" />
+            <End Role="Gasto" EntitySet="Gasto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gasto_TipoGasto" Association="Self.FK_Gasto_TipoGasto">
+            <End Role="TipoGasto" EntitySet="TipoGasto" />
+            <End Role="Gasto" EntitySet="Gasto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gasto_Usuario" Association="Self.FK_Gasto_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Gasto" EntitySet="Gasto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Unidad_Consorcio" Association="Self.FK_Unidad_Consorcio">
+            <End Role="Consorcio" EntitySet="Consorcio" />
+            <End Role="Unidad" EntitySet="Unidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Unidad_Usuario" Association="Self.FK_Unidad_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Unidad" EntitySet="Unidad" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PW3_TP_20202CModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Consorcio">
+          <Key>
+            <PropertyRef Name="IdConsorcio" />
+          </Key>
+          <Property Name="IdConsorcio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdProvincia" Type="Int32" Nullable="false" />
+          <Property Name="Ciudad" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Calle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Altura" Type="Int32" Nullable="false" />
+          <Property Name="DiaVencimientoExpensas" Type="Int32" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdUsuarioCreador" Type="Int32" />
+          <NavigationProperty Name="Provincia" Relationship="Self.FK_Consorcio_Consorcio" FromRole="Consorcio" ToRole="Provincia" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Consorcio_Usuario" FromRole="Consorcio" ToRole="Usuario" />
+          <NavigationProperty Name="Gasto" Relationship="Self.FK_Gasto_Consorcio" FromRole="Consorcio" ToRole="Gasto" />
+          <NavigationProperty Name="Unidad" Relationship="Self.FK_Unidad_Consorcio" FromRole="Consorcio" ToRole="Unidad" />
+        </EntityType>
+        <EntityType Name="Gasto">
+          <Key>
+            <PropertyRef Name="IdGasto" />
+          </Key>
+          <Property Name="IdGasto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdConsorcio" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoGasto" Type="Int32" Nullable="false" />
+          <Property Name="FechaGasto" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AnioExpensa" Type="Int32" Nullable="false" />
+          <Property Name="MesExpensa" Type="Int32" Nullable="false" />
+          <Property Name="ArchivoComprobante" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Monto" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdUsuarioCreador" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Consorcio" Relationship="Self.FK_Gasto_Consorcio" FromRole="Gasto" ToRole="Consorcio" />
+          <NavigationProperty Name="TipoGasto" Relationship="Self.FK_Gasto_TipoGasto" FromRole="Gasto" ToRole="TipoGasto" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Gasto_Usuario" FromRole="Gasto" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Provincia">
+          <Key>
+            <PropertyRef Name="IdProvincia" />
+          </Key>
+          <Property Name="IdProvincia" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Consorcio" Relationship="Self.FK_Consorcio_Consorcio" FromRole="Provincia" ToRole="Consorcio" />
+        </EntityType>
+        <EntityType Name="TipoGasto">
+          <Key>
+            <PropertyRef Name="IdTipoGasto" />
+          </Key>
+          <Property Name="IdTipoGasto" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Gasto" Relationship="Self.FK_Gasto_TipoGasto" FromRole="TipoGasto" ToRole="Gasto" />
+        </EntityType>
+        <EntityType Name="Unidad">
+          <Key>
+            <PropertyRef Name="IdUnidad" />
+          </Key>
+          <Property Name="IdUnidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdConsorcio" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NombrePropietario" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ApellidoPropietario" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="EmailPropietario" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Superficie" Type="Int32" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdUsuarioCreador" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Consorcio" Relationship="Self.FK_Unidad_Consorcio" FromRole="Unidad" ToRole="Consorcio" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Unidad_Usuario" FromRole="Unidad" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaRegistracion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaUltLogin" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Consorcio" Relationship="Self.FK_Consorcio_Usuario" FromRole="Usuario" ToRole="Consorcio" />
+          <NavigationProperty Name="Gasto" Relationship="Self.FK_Gasto_Usuario" FromRole="Usuario" ToRole="Gasto" />
+          <NavigationProperty Name="Unidad" Relationship="Self.FK_Unidad_Usuario" FromRole="Usuario" ToRole="Unidad" />
+        </EntityType>
+        <Association Name="FK_Consorcio_Consorcio">
+          <End Role="Provincia" Type="Self.Provincia" Multiplicity="1" />
+          <End Role="Consorcio" Type="Self.Consorcio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincia">
+              <PropertyRef Name="IdProvincia" />
+            </Principal>
+            <Dependent Role="Consorcio">
+              <PropertyRef Name="IdProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Consorcio_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Consorcio" Type="Self.Consorcio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Consorcio">
+              <PropertyRef Name="IdUsuarioCreador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gasto_Consorcio">
+          <End Role="Consorcio" Type="Self.Consorcio" Multiplicity="1" />
+          <End Role="Gasto" Type="Self.Gasto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consorcio">
+              <PropertyRef Name="IdConsorcio" />
+            </Principal>
+            <Dependent Role="Gasto">
+              <PropertyRef Name="IdConsorcio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Unidad_Consorcio">
+          <End Role="Consorcio" Type="Self.Consorcio" Multiplicity="1" />
+          <End Role="Unidad" Type="Self.Unidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consorcio">
+              <PropertyRef Name="IdConsorcio" />
+            </Principal>
+            <Dependent Role="Unidad">
+              <PropertyRef Name="IdConsorcio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gasto_TipoGasto">
+          <End Role="TipoGasto" Type="Self.TipoGasto" Multiplicity="1" />
+          <End Role="Gasto" Type="Self.Gasto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoGasto">
+              <PropertyRef Name="IdTipoGasto" />
+            </Principal>
+            <Dependent Role="Gasto">
+              <PropertyRef Name="IdTipoGasto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gasto_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Gasto" Type="Self.Gasto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Gasto">
+              <PropertyRef Name="IdUsuarioCreador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Unidad_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Unidad" Type="Self.Unidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Unidad">
+              <PropertyRef Name="IdUsuarioCreador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Contexto" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Consorcio" EntityType="Self.Consorcio" />
+          <EntitySet Name="Gasto" EntityType="Self.Gasto" />
+          <EntitySet Name="Provincia" EntityType="Self.Provincia" />
+          <EntitySet Name="TipoGasto" EntityType="Self.TipoGasto" />
+          <EntitySet Name="Unidad" EntityType="Self.Unidad" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Consorcio_Consorcio" Association="Self.FK_Consorcio_Consorcio">
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Consorcio" EntitySet="Consorcio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Consorcio_Usuario" Association="Self.FK_Consorcio_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Consorcio" EntitySet="Consorcio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gasto_Consorcio" Association="Self.FK_Gasto_Consorcio">
+            <End Role="Consorcio" EntitySet="Consorcio" />
+            <End Role="Gasto" EntitySet="Gasto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Unidad_Consorcio" Association="Self.FK_Unidad_Consorcio">
+            <End Role="Consorcio" EntitySet="Consorcio" />
+            <End Role="Unidad" EntitySet="Unidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gasto_TipoGasto" Association="Self.FK_Gasto_TipoGasto">
+            <End Role="TipoGasto" EntitySet="TipoGasto" />
+            <End Role="Gasto" EntitySet="Gasto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gasto_Usuario" Association="Self.FK_Gasto_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Gasto" EntitySet="Gasto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Unidad_Usuario" Association="Self.FK_Unidad_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Unidad" EntitySet="Unidad" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PW3_TP_20202CModelStoreContainer" CdmEntityContainer="Contexto">
+          <EntitySetMapping Name="Consorcio">
+            <EntityTypeMapping TypeName="PW3_TP_20202CModel.Consorcio">
+              <MappingFragment StoreEntitySet="Consorcio">
+                <ScalarProperty Name="IdConsorcio" ColumnName="IdConsorcio" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+                <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="Altura" ColumnName="Altura" />
+                <ScalarProperty Name="DiaVencimientoExpensas" ColumnName="DiaVencimientoExpensas" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="IdUsuarioCreador" ColumnName="IdUsuarioCreador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gasto">
+            <EntityTypeMapping TypeName="PW3_TP_20202CModel.Gasto">
+              <MappingFragment StoreEntitySet="Gasto">
+                <ScalarProperty Name="IdGasto" ColumnName="IdGasto" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdConsorcio" ColumnName="IdConsorcio" />
+                <ScalarProperty Name="IdTipoGasto" ColumnName="IdTipoGasto" />
+                <ScalarProperty Name="FechaGasto" ColumnName="FechaGasto" />
+                <ScalarProperty Name="AnioExpensa" ColumnName="AnioExpensa" />
+                <ScalarProperty Name="MesExpensa" ColumnName="MesExpensa" />
+                <ScalarProperty Name="ArchivoComprobante" ColumnName="ArchivoComprobante" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="IdUsuarioCreador" ColumnName="IdUsuarioCreador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provincia">
+            <EntityTypeMapping TypeName="PW3_TP_20202CModel.Provincia">
+              <MappingFragment StoreEntitySet="Provincia">
+                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoGasto">
+            <EntityTypeMapping TypeName="PW3_TP_20202CModel.TipoGasto">
+              <MappingFragment StoreEntitySet="TipoGasto">
+                <ScalarProperty Name="IdTipoGasto" ColumnName="IdTipoGasto" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Unidad">
+            <EntityTypeMapping TypeName="PW3_TP_20202CModel.Unidad">
+              <MappingFragment StoreEntitySet="Unidad">
+                <ScalarProperty Name="IdUnidad" ColumnName="IdUnidad" />
+                <ScalarProperty Name="IdConsorcio" ColumnName="IdConsorcio" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="NombrePropietario" ColumnName="NombrePropietario" />
+                <ScalarProperty Name="ApellidoPropietario" ColumnName="ApellidoPropietario" />
+                <ScalarProperty Name="EmailPropietario" ColumnName="EmailPropietario" />
+                <ScalarProperty Name="Superficie" ColumnName="Superficie" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="IdUsuarioCreador" ColumnName="IdUsuarioCreador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="PW3_TP_20202CModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FechaRegistracion" ColumnName="FechaRegistracion" />
+                <ScalarProperty Name="FechaUltLogin" ColumnName="FechaUltLogin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

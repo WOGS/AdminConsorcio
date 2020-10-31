@@ -1,88 +1,90 @@
 ﻿@model IEnumerable<ServicioNegocio.EF.Consorcio>
 
 @{
-    Layout = null;
+    ViewBag.Title = "Ingresar";
+    Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
 }
 
-<!DOCTYPE html>
+<section id="hero" class="d-flex align-items-center">
+    <div class="container text-center position-relative cw" data-aos="fade-in" data-aos-delay="200">
+        <h1>Administración de Consorcios</h1>
+        <h2>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat assumenda iste similique perferendis
+            accusantium cupiditate? Accusantium quasi temporibus.
+        </h2>
+    </div>
+</section>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Listar</title>
-</head>
-<body>
-    <p>
-        @Html.ActionLink("Create New", "ViewCrear")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdConsorcio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdProvincia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ciudad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Calle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Altura)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiaVencimientoExpensas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaCreacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdUsuarioCreador)
-            </th>
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdConsorcio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdProvincia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ciudad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Calle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Altura)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiaVencimientoExpensas)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaCreacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdUsuarioCreador)
-            </td>
-            <td>
-                <a class="underlineHover" type="" href="../Consorcio/Eliminar/@item.IdConsorcio">Borrar</a>
-                <a class="underlineHover" type="" href="../Consorcio/ViewEditar/@item.IdConsorcio">Editar</a>
-            </td>
-        </tr>
-    }
-    
-    </table>
-</body>
-</html>
+<section id="listado" class="ta-c">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mx-auto">
+                <h2>Listado de Consorcios</h2>
+
+                <br>
+                <div class="box-form">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">@Html.DisplayNameFor(model => model.Nombre)</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.IdProvincia)</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.Ciudad), @Html.DisplayNameFor(model => model.Calle), @Html.DisplayNameFor(model => model.Altura)</th>
+                                <th scope="col">Unidades</th>
+                                <th scope="col">Expensas</th>
+                                <th scope="col">Gastos</th>
+                                <th scope="col">Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th scope="row"> <a href="editar.html">@Html.DisplayFor(modelItem => item.Nombre)</a></th>
+                                    <td>@Html.DisplayFor(modelItem => item.IdProvincia)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Ciudad),  @Html.DisplayFor(modelItem => item.Calle), @Html.DisplayFor(modelItem => item.Altura)</td>
+                                    <td><a href="unidades.html"><i class="fas fa-building"></i></a></td>
+                                    <td><a href="expensas.html"><i class="fas fa-list"></i></a></td>
+                                    <td><a href="gastos.html"><i class="fas fa-coins"></i></a></td>
+                                    <td><a href="" class="a-delete"><i class="fas fa-times-circle"></i></a></td>
+                                </tr>
+                            }
+                            </tbody>
+                    </table>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <br>
+                    <div class="row">
+                        <div class="col-3 offset-9">
+                            <a class="btn btn-primary" href="nuevo-consorcio.html">Nuevo Consorcio</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="mapa" class="bg-light ta-c">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mx-auto">
+                <h2>Ubicaciones</h2>
+                <br>
+                <img src="../../Img/map.png">
+            </div>
+        </div>
+    </div>
+</section>
+

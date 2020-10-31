@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@Page.Title</title>
+
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @Styles.Render("~/CSS/login.css")
+    @Styles.Render("~/CSS/estilos.css")
+    @Scripts.Render("~/Scripts/myscript/scripts.js")
+    <!--Icons FontAwesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<body>
+    <div class="mi-container">
+        <div class="row">
+            <div class="col-2">
+                <a href="../Home/Inicio" class="btn btn-primary mt-4 ml-4">Inicio</a>
+            </div>
+        </div>
+        <div class="card-center">
+            <div class="row d-flex">
+                <div class="col-lg-6">
+                    <div class="card1 pb-5">
+                        <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
+                            <img src="../../img/buildings.png"
+                                 class="image">
+                        </div>
+                    </div>
+                </div>
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    @Html.Partial("Footer")
+</body>
+</html>

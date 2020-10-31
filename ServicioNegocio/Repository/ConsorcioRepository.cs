@@ -29,7 +29,7 @@ namespace ServicioNegocio.Repository
             contexto.Consorcio.Add(consorcio);
             contexto.SaveChanges();
         }
-
+                
         public void Eliminar(int idConsorcio)
         {
             Consorcio consorcio = ObtenerPorId(idConsorcio);

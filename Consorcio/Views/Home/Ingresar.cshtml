@@ -1,36 +1,36 @@
 ﻿@{
-    Layout = null;
+    ViewBag.Title = "Ingresar";
+    Layout = "~/Views/Shared/_LayoutInicial.cshtml";
 
 }
-
-
-<!DOCTYPE html>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="~/CSS/StyleSheet1.css" rel="stylesheet" />
-<!------ Include the above in your HEAD tag ---------->
-
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-        <!-- Tabs Titles -->
-        <!-- Icon -->
-        <div class="fadeIn first">
-            <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
-        </div>
-
-        <!-- Login Form -->
+<div class="col-lg-6">
+    <div class="card2 card  px-4 py-5">
+        <h2><b>Ingresar</b></h2>
+        <hr>
         <form action="/Usuario/Login" method="post">
-            <input type="text" id="Email" class="fadeIn second" name="Email" placeholder="Email" required>
-            <input type="text" id="Password" class="fadeIn third" name="Password" placeholder="password" required>
-            <input type="submit" class="fadeIn fourth" value="Ingresar">
+            <div class="row px-3">
+                <label class="col-form-label">
+                    <h6 class="">Dirección Email</h6>
+                </label>
+                <input class="form-control" type="text" id="Email" name="email" placeholder="Ingrese Email" required>
+            </div>
+            <div class="row px-3">
+                <label class="col-form-label">
+                    <h6 class="">Contraseña</h6>
+                </label>
+                <input type="password" class="form-control" id="Password" name="password" placeholder="Ingrese Contraseña" required>
+            </div>
+            <br>
+            <div class="row mb-3 px-3">
+                <input type="submit" value="Ingresar" class="btn btn-primary" />
+            </div>
+            <div class="row mb-4 px-3" id="formFooter">
+                <small class="font-weight-bold">
+                    No estás registrado? <a href="../Usuario/Registrar" class="text-orange">Registrarse</a>
+                </small>
+                <h1>@Session["MsjError"]</h1>
+            </div>
         </form>
-
-        <!-- Remind Passowrd -->
-        <div id="formFooter">
-            <a class="underlineHover" href="../Usuario/Registrar">Aun no estoy registrado</a>
-            <h1>MENSAJE: @Session["MsjError"]</h1>
-        </div>
-
+        
     </div>
 </div>

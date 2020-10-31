@@ -1,0 +1,105 @@
+﻿/*!
+ * Start Bootstrap - Scrolling Nav (https://startbootstrap.com/templates/scrolling-nav)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-scrolling-nav/blob/master/LICENSE)
+ */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
+
+body {
+    font-family: 'Raleway', sans-serif !important;
+}
+
+header {
+    padding: 156px 0 100px;
+}
+
+section {
+    padding: 150px 0;
+}
+
+#hero {
+    width: 100%;
+    height: 80vh;
+    background: url("https://images3.alphacoders.com/512/thumb-1920-51255.jpg") center center;
+    background-size: cover;
+    position: relative;
+}
+
+.nav-color {
+    background-color: #ff8800e8 !important;
+}
+
+    .nav-color a {
+        color: white !important;
+    }
+
+.cw {
+    color: white;
+}
+
+.ta-c {
+    text-align: center;
+}
+
+.img-center {
+    display: block;
+    margin: auto;
+}
+
+.box-form {
+    border: 1px solid #8080804f;
+    padding: 38px;
+    border-radius: 10px;
+}
+
+.btn-primary {
+    background-color: #ff8800e8 !important;
+    border-color: #ff8800e8 !important;
+    color: white !important;
+}
+
+    .btn-primary:hover {
+        background-color: rgb(209, 99, 9) !important;
+        border-color: rgb(209, 99, 9) !important;
+        color: white !important;
+    }
+
+.a-box {
+    color: white;
+    background-color: #ffa500b5;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+    .a-box:hover {
+        color: white !important;
+    }
+
+.box-form p {
+    font-size: 20px;
+    text-align: initial;
+}
+
+th a {
+    color: #ffa500b5 !important
+}
+
+table a {
+    color: initial;
+}
+
+    table a:hover {
+        color: #ffa500b5 !important
+    }
+
+.pagination a {
+    color: grey !important
+}
+
+.a-delete:hover {
+    color: red !important;
+}
+
+.breadcrumb a {
+    color: #ffa500b5 !important
+}

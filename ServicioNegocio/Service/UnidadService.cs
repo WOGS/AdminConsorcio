@@ -18,9 +18,9 @@ namespace ServicioNegocio.Service
             unidadRepository = new UnidadRepository();
         }
 
-        public List<Unidad> Listar(int idUsuario)
+        public List<Unidad> Listar(int idConsorcio)
         {
-            List<Unidad> unidades = unidadRepository.Listar(idUsuario);
+            List<Unidad> unidades = unidadRepository.Listar(idConsorcio);
             return unidades;
         }
 

@@ -66,9 +66,14 @@ namespace Consorcio.Controllers
         public ActionResult ViewEditar(string id)
         {
             ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
-            int idConsorcio = int.Parse((String) id);
+            int idConsorcio = int.Parse(id);
 
-            consorcio= consorcioService.Buscar(idConsorcio);
+            consorcio = consorcioService.Buscar(idConsorcio);
+            if (consorcio == null)
+            {
+                TempData["Message"] = "El consorcio elegido no existe";
+                return Redirect("/consorcio/listar");
+            }
 
             return View(consorcio);
         }

@@ -252,6 +252,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ConsorcioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UnidadController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -297,6 +298,7 @@
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Shared\_LayoutInicial.cshtml" />
     <Content Include="Views\Shared\_LayoutGeneral.cshtml" />
+    <Content Include="Views\Unidad\Listar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

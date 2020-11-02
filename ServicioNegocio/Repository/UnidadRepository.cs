@@ -16,20 +16,30 @@ namespace ServicioNegocio.Repository
             contexto = new Contexto();
         }
 
-        public List<Unidad> Listar(int idUsuario)
+        public List<Unidad> Listar(int idConsorcio)
         {
-
-           List<Unidad> unidades = (from con in contexto.Unidad where con.IdUsuarioCreador == idUsuario select con).ToList();
+            // se le debe pasar el id de consorcio para traer todas las unidades del consorcio
+           List<Unidad> unidades = (from con in contexto.Unidad where con.IdConsorcio == idConsorcio select con).ToList();
 
             return unidades;
         }
 
         public void Guardar(Unidad unidad)
         {
-            DateTime today = DateTime.Now;
-            unidad.FechaCreacion = today;
-            contexto.Unidad.Add(unidad);
-            contexto.SaveChanges();
+            Unidad uni = new Unidad();
+            uni = Buscar(unidad.IdUnidad);
+            String mensaje = "";
+
+            if(String.IsNullOrEmpty(uni.Nombre))
+            {
+             DateTime today = DateTime.Now;
+             unidad.FechaCreacion = today;
+             contexto.Unidad.Add(unidad);
+             contexto.SaveChanges();
+                mensaje = "ok";
+            }
+            else { mensaje = "error"; }
+           
         }
 
         public void Eliminar(int idUnidad)

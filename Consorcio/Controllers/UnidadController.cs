@@ -19,11 +19,11 @@ namespace Consorcio.Controllers
 
         }
         // GET: Consorcio
-        public ActionResult Listar()
+        public ActionResult Listar(string id)
         {
-            int id = (int)Session["idUser"];
-            List<ServicioNegocio.EF.Unidad> unidades = unidadService.Listar(id);
-           // List<Provincia> provincias = provinciaService.Listar();
+            int idConsorcio = int.Parse(id);
+
+            List<Unidad> unidades = unidadService.Listar(idConsorcio);
             
             return View(unidades);
         }

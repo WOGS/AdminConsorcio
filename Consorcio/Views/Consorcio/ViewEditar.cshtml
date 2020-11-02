@@ -20,7 +20,9 @@
             <div class=""><h1>Editar Consorcio</h1></div>
             <div class="image"></div>
             <div class="frm">
-                <form action="GuardarEdicion" method="post">
+                <form action="/consorcio/GuardarEdicion" method="post">
+                    <input type="hidden" name="IdConsorcio" value="@Model.IdConsorcio" />
+
                     <div class="form-group">
                         <label for="Nombre">Nombre:</label>
                         <input type="text" class="form-control" id="Nombre" name="Nombre" value="@Html.DisplayFor(model => model.Nombre)" placeholder="Ingrese Nombre" required>

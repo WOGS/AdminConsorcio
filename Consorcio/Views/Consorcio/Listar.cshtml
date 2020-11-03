@@ -42,13 +42,13 @@
                                     <th scope="row"> <a href="/Consorcio/vieweditar/@item.IdConsorcio">@Html.DisplayFor(modelItem => item.Nombre)</a></th>
                                     <td>@Html.DisplayFor(modelItem => item.IdProvincia)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Ciudad),  @Html.DisplayFor(modelItem => item.Calle), @Html.DisplayFor(modelItem => item.Altura)</td>
-                                    <td><a href="/Unidad/listar/@item.IdConsorcio"><i class="fas fa-building"></i</a></td>
+                                    <td><a href="/Unidad/listar/@item.IdConsorcio"> <i class="fas fa-building"> </i></a></td>
                                     <td><a href="expensas.html"><i class="fas fa-list"></i></a></td>
                                     <td><a href="gastos.html"><i class="fas fa-coins"></i></a></td>
                                     <td><a href="" class="a-delete"><i class="fas fa-times-circle"></i></a></td>
                                 </tr>
                             }
-                            </tbody>
+                        </tbody>
                     </table>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">

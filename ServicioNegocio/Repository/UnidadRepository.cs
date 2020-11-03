@@ -26,19 +26,17 @@ namespace ServicioNegocio.Repository
 
         public void Guardar(Unidad unidad)
         {
+
             Unidad uni = new Unidad();
-            uni = Buscar(unidad.IdUnidad);
+       //     uni = Buscar(unidad.IdUnidad);
             String mensaje = "";
 
-            if(String.IsNullOrEmpty(uni.Nombre))
-            {
              DateTime today = DateTime.Now;
              unidad.FechaCreacion = today;
              contexto.Unidad.Add(unidad);
              contexto.SaveChanges();
-                mensaje = "ok";
-            }
-            else { mensaje = "error"; }
+            mensaje = "ok";
+            
            
         }
 

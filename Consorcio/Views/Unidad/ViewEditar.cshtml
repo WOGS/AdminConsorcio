@@ -1,0 +1,57 @@
+﻿@model ServicioNegocio.EF.Unidad
+
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Editar Unidad</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/CSS/Style.css">
+</head>
+
+<body>
+    <div class="container" id="registration-form">
+        <div class=""><h1>Editar Unidad</h1></div>
+        <div class="image"></div>
+        <div class="frm">
+            <form action="/unidad/GuardarEdicion" method="post">
+                <input type="hidden" name="IdUnidad" value="@Model.IdUnidad" />
+
+                <div class="form-group">
+                    <label for="unidad nombre">Nombre:</label>
+                    <input type="text" class="form-control" id="Nombre" name="Nombre" value="@Html.DisplayFor(model => model.Nombre)" placeholder="Ingrese Nombre de unidad" required>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre Propietario:</label>
+                    <input type="text" class="form-control" id="NombrePropietario" name="NombrePropietario" value="@Html.DisplayFor(model => model.NombrePropietario)" placeholder="Ingrese Nompre propietario" required>
+                </div>
+                <div class="form-group">
+                    <label for="apellido">Apellido Propietario:</label>
+                    <input type="text" class="form-control" id="ApellidoPropietario" name="ApellidoPropietario" value="@Html.DisplayFor(model => model.ApellidoPropietario)" placeholder="Re-Ingrese Apellido propietario" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email propietario:</label>
+                    <input type="email" class="form-control" id="EmailPropietario" name="EmailPropietario" value="@Html.DisplayFor(model => model.EmailPropietario)" placeholder="Re-Ingrese Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="superficie">Superficie:</label>
+                    <input type="text" class="form-control" id="Superficie" name="Superficie" value="@Html.DisplayFor(model => model.Superficie)" placeholder="Re-Ingrese Superficie" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-lg">Guardar</button>
+                    <button type="button" class="btn btn-success btn-lg">
+                        <a class="underlineHover" type="" href="/Consorcio/Listar">Cancelar</a>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+

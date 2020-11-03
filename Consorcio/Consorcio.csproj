@@ -299,6 +299,9 @@
     <Content Include="Views\Shared\_LayoutInicial.cshtml" />
     <Content Include="Views\Shared\_LayoutGeneral.cshtml" />
     <Content Include="Views\Unidad\Listar.cshtml" />
+    <Content Include="Views\Unidad\ViewEditar.cshtml" />
+    <Content Include="Views\Unidad\ViewCrear.cshtml" />
+    <Content Include="Views\Unidad\ViewEliminar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

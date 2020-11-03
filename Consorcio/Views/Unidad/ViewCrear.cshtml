@@ -1,0 +1,61 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Formulario de Alta de Unidad</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/CSS/Style.css">
+</head>
+
+<body>
+    <div class="container" id="registration-form">
+        <div class="image"></div>
+        <div class="frm">
+            <h1>Nueva Unidad</h1>
+            <form action="Guardar" method="post">
+                <div class="form-group">
+                    <label for="NombreUnidad">Nombre Unidad:</label>
+                    <input type="text" class="form-control" id="NombreUnidad" name="Nombre" placeholder="Ingrese Nombre de la Unidad" required>
+                </div>
+                <div class="form-group">
+                    <label for="NombrePropietario">Nombre Propietario:</label>
+                    <input type="text" class="form-control" id="NombrePropietario" name="NombrePropietario" placeholder="Ingrese Provincia" required>
+                </div>
+                <div class="form-group">
+                    <label for="ApellidoPropietario">Apellido Propietario:</label>
+                    <input type="text" class="form-control" id="ApellidoPropietario" name="ApellidoPropietario" placeholder="Re-Ingrese Ciudad" required>
+                </div>
+                <div class="form-group">
+                    <label for="Email">Email Propietario:</label>
+                    <input type="email" class="form-control" id="Email" name="EmailPropietario" placeholder="Re-Ingrese Calle" required>
+                </div>
+                <div class="form-group">
+                    <label for="Superficie">Superficie:</label>
+                    <input type="text" class="form-control" id="Superficie" name="Superficie" placeholder="Re-Ingrese Altura" required>
+                </div>
+                <div class="form-group">
+                    <label for="DiaVencimientoExpensas">Dia Venc. Expensas:</label>
+                    <input type="text" class="form-control" id="DiaVencimientoExpensas" name="DiaVencimientoExpensas" placeholder="Re-Ingrese Dia" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-lg">Guardar</button>
+                    <button type="submit" class="btn btn-success btn-lg">Guardar y crear otro</button>
+                    <button type="submit" class="btn btn-success btn-lg">Guardar y crear Unidad</button>
+                    <button type="button" class="btn btn-success btn-lg">
+                        <a class="underlineHover" type="" href="../Unidad/Listar">Cancelar</a>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

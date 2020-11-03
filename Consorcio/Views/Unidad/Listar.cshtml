@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ServicioNegocio.EF.Unidad>
 
 @{
-    ViewBag.Title = "Ingresar";
+
     Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
 }
 
@@ -26,6 +26,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
+
                                 <th scope="col">@Html.DisplayNameFor(model => model.Nombre)</th>
                                 <th scope="col">@Html.DisplayNameFor(model => model.ApellidoPropietario)</th>
                                 <th scope="col">@Html.DisplayNameFor(model => model.NombrePropietario)</th>
@@ -37,11 +38,12 @@
                             @foreach (var item in Model)
                             {
                             <tr>
-                                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                <th scope="row"> <a href="/Unidad/vieweditar/@item.IdUnidad">@Html.DisplayFor(modelItem => item.Nombre)</a></th>
                                 <td>@Html.DisplayFor(modelItem => item.ApellidoPropietario)</td>
                                 <td>@Html.DisplayFor(modelItem => item.NombrePropietario)</td>
                                 <td>@Html.DisplayFor(modelItem => item.EmailPropietario)</td>
-                                <td><a href="/Unidad/eliminar/@item.IdUnidad" class="a-delete"><i class="fas fa-times-circle"></i></a></td>
+                                <th scope="row"> <a href="/Unidad/ViewEliminar/@item.IdUnidad"><i class="fas fa-times-circle"></i></a></th>
+
                             </tr>
                             }
                         </tbody>
@@ -62,7 +64,7 @@
                     <br>
                     <div class="row">
                         <div class="col-3 offset-9">
-                            <a class="btn btn-primary" href="nueva-unidad.html">Nueva Unidad</a>
+                            <a class="btn btn-primary" href="/Unidad/ViewCrear">Nueva Unidad </a>
                         </div>
                     </div>
                 </div>

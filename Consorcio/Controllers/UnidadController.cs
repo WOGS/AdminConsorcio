@@ -3,6 +3,7 @@ using ServicioNegocio.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
 
@@ -10,7 +11,7 @@ namespace Consorcio.Controllers
 {
     public class UnidadController : Controller
     {
-        UnidadService  unidadService;
+        UnidadService unidadService;
         string consorcioEditado = "";
 
         public UnidadController()
@@ -28,7 +29,7 @@ namespace Consorcio.Controllers
             int idConsorcio = int.Parse(id);
 
             List<Unidad> unidades = unidadService.Listar(idConsorcio);
-            
+
             return View(unidades);
         }
 
@@ -38,32 +39,49 @@ namespace Consorcio.Controllers
             return View();
         }
 
+
+
         [HttpPost]
-        public ActionResult Guardar(ServicioNegocio.EF.Unidad unidad)
-        {
-            
-            String idConsorcio = Session["idConsorcio"].ToString();
+        public ActionResult Guardar(ServicioNegocio.EF.Unidad unidad, string accion){​​​​
+           String idConsorcio = Session["idConsorcio"].ToString();
             String id = Session["idUser"].ToString();
+            
+            //int id = (int)Session["idUser"];
 
-            unidad.IdUsuarioCreador = int.Parse(id);
-            unidad.IdConsorcio = int.Parse(idConsorcio);
+            string vista = "Listar";
 
-            unidadService.Guardar(unidad);
+            switch (accion)
 
-            return RedirectToAction("Listar/"+idConsorcio.ToString());
-        }
+             {
+                case "Guardar":
+                    unidad.IdUsuarioCreador = int.Parse(id);
+                    unidad.IdConsorcio = int.Parse(idConsorcio);
+                    unidadService.Guardar(unidad);
+                    return RedirectToAction("Listar");
+                case "GuardarCrearOtro":
 
-/*        public ActionResult ViewEliminarUnidad(string idUnidad) {
+                    unidad.IdUsuarioCreador = int.Parse(id);
+                    unidad.IdConsorcio = int.Parse(idConsorcio);
+                    unidadService.Guardar(unidad);
 
-            TempData["idUnidad"] = "id";
+                    return RedirectToAction("ViewCrear");
 
-            return View();
-        }*/
+             }
+ 
+            return RedirectToAction(vista);
 
+        }​​​​
+
+        /*        public ActionResult ViewEliminarUnidad(string idUnidad) {
+
+                    TempData["idUnidad"] = "id";
+
+                    return View();
+                }*/
 
         public ActionResult ViewEliminar(int idUnidad)
         {
-           // int idUnidad = int.Parse((String)TempData["idUnidad"]);
+            // int idUnidad = int.Parse((String)TempData["idUnidad"]);
 
             unidadService.Eliminar(idUnidad);
 
@@ -73,9 +91,9 @@ namespace Consorcio.Controllers
         public ActionResult ViewEditar(string id)
         {
             ServicioNegocio.EF.Unidad unidad = new ServicioNegocio.EF.Unidad();
-            int idUnidad = int.Parse((String) id);
+            int idUnidad = int.Parse((String)id);
 
-            unidad= unidadService.Buscar(idUnidad);
+            unidad = unidadService.Buscar(idUnidad);
 
             return View(unidad);
         }
@@ -83,11 +101,12 @@ namespace Consorcio.Controllers
         [HttpPost]
         public ActionResult GuardarEdicion(ServicioNegocio.EF.Unidad unidad)
         {
-           Unidad unidadEditada = unidadService.Buscar(unidad.IdUnidad);
+            Unidad unidadEditada = unidadService.Buscar(unidad.IdUnidad);
             unidadService.Editar(unidad);
             //string idConsorcioDeUnidadEditada = unidadEditada.IdConsorcio.ToString();
 
-            return RedirectToAction(actionName: "Listar/"+ unidadEditada.IdConsorcio.ToString());
+            return RedirectToAction(actionName: "Listar/" + unidadEditada.IdConsorcio.ToString());
         }
+
     }
 }

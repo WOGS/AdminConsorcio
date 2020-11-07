@@ -13,8 +13,7 @@ namespace Consorcio.Controllers
     public class UnidadController : Controller
     {
         UnidadService unidadService;
-        string consorcioEditado = "";
-
+        
         public UnidadController()
         {
             unidadService = new UnidadService();
@@ -23,20 +22,18 @@ namespace Consorcio.Controllers
         // GET: Unidad
         public ActionResult Listar(string id)
         {
+            string consorcioEditado = "";
 
-            if (String.IsNullOrEmpty(id))
+            if (id!=null)
             {
-                
-                Session["idConsorcio"] = "";
                 Session["idConsorcio"] = id;
-                
-                consorcioEditado = (String)Session["idConsorcio"];
+                consorcioEditado = id;
             } else
             {
-                consorcioEditado = id;
+                consorcioEditado = (String)Session["idConsorcio"];
             }
            
-            int idConsorcio = int.Parse(id);
+            int idConsorcio = int.Parse(consorcioEditado);
 
             List<Unidad> unidades = unidadService.Listar(idConsorcio);
 
@@ -56,8 +53,6 @@ namespace Consorcio.Controllers
         {
             String idConsorcio = Session["idConsorcio"].ToString();
             String id = Session["idUser"].ToString();
-
-            //int id = (int)Session["idUser"];
 
             string vista = "Listar";
 
@@ -81,13 +76,6 @@ namespace Consorcio.Controllers
 
             return RedirectToAction(vista);
         }
-
-        /*        public ActionResult ViewEliminarUnidad(string idUnidad) {
-
-                    TempData["idUnidad"] = "id";
-
-                    return View();
-                }*/
 
         public ActionResult ViewEliminar(int idUnidad)
         {

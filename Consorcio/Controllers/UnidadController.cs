@@ -1,4 +1,5 @@
-﻿using ServicioNegocio.EF;
+﻿using Microsoft.Ajax.Utilities;
+using ServicioNegocio.EF;
 using ServicioNegocio.Service;
 using System;
 using System.Collections.Generic;
@@ -22,10 +23,19 @@ namespace Consorcio.Controllers
         // GET: Unidad
         public ActionResult Listar(string id)
         {
-            Session["idConsorcio"] = "";
-            Session["idConsorcio"] = id;
 
-            consorcioEditado = id;
+            if (String.IsNullOrEmpty(id))
+            {
+                
+                Session["idConsorcio"] = "";
+                Session["idConsorcio"] = id;
+                
+                consorcioEditado = (String)Session["idConsorcio"];
+            } else
+            {
+                consorcioEditado = id;
+            }
+           
             int idConsorcio = int.Parse(id);
 
             List<Unidad> unidades = unidadService.Listar(idConsorcio);
@@ -42,17 +52,18 @@ namespace Consorcio.Controllers
 
 
         [HttpPost]
-        public ActionResult Guardar(ServicioNegocio.EF.Unidad unidad, string accion){​​​​
-           String idConsorcio = Session["idConsorcio"].ToString();
+        public ActionResult Guardar(ServicioNegocio.EF.Unidad unidad, string accion)
+        {
+            String idConsorcio = Session["idConsorcio"].ToString();
             String id = Session["idUser"].ToString();
-            
+
             //int id = (int)Session["idUser"];
 
             string vista = "Listar";
 
             switch (accion)
 
-             {
+            {
                 case "Guardar":
                     unidad.IdUsuarioCreador = int.Parse(id);
                     unidad.IdConsorcio = int.Parse(idConsorcio);
@@ -62,15 +73,14 @@ namespace Consorcio.Controllers
 
                     unidad.IdUsuarioCreador = int.Parse(id);
                     unidad.IdConsorcio = int.Parse(idConsorcio);
-                    unidadService.Guardar(unidad);
+                    unidadService.Guardar(unidad);                       
 
                     return RedirectToAction("ViewCrear");
 
-             }
- 
-            return RedirectToAction(vista);
+            }
 
-        }​​​​
+            return RedirectToAction(vista);
+        }
 
         /*        public ActionResult ViewEliminarUnidad(string idUnidad) {
 

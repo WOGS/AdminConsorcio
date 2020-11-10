@@ -1,6 +1,16 @@
-﻿@{
-    Layout = null;
-}
+﻿@model ServicioNegocio.EF.Provincia
+
+@{ Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
+
+    List<ServicioNegocio.EF.Provincia> provincias = ViewBag.provincias as List<ServicioNegocio.EF.Provincia>;
+
+    List<SelectListItem> provinciaItems = provincias.Select(o => new SelectListItem()
+    {
+        Text = o.Nombre,
+        Value = o.IdProvincia.ToString()
+    }).ToList();
+
+    provinciaItems.Insert(0, new SelectListItem() { Value = "", Text = "Seleccione Provincia" }); }
 
 <!DOCTYPE html>
 
@@ -17,6 +27,7 @@
     </head>
 
     <body>
+        <section>
         <div class="container" id="registration-form">
             <div class="image"></div>
             <div class="frm">
@@ -28,7 +39,9 @@
                     </div>
                     <div class="form-group">
                         <label for="pwd">Provincia:</label>
-                        <input type="text" class="form-control" id="IdProvincia" name="IdProvincia" placeholder="Ingrese Provincia" required>
+                        @Html.DropDownListFor(Model => Model.IdProvincia, provinciaItems)
+                        <input type="hidden" name="IdProvincia" value="@Html.DisplayFor(model => model.IdProvincia)">
+                        <!--input type="text" class="form-control" id="IdProvincia" name="IdProvincia" placeholder="Ingrese Provincia" required-->
                     </div>
                     <div class="form-group">
                         <label for="username">Ciudad:</label>
@@ -46,15 +59,20 @@
                         <label for="username">Dia Venc. Expensas:</label>
                         <input type="text" class="form-control" id="DiaVencimientoExpensas" name="DiaVencimientoExpensas" placeholder="Re-Ingrese Dia" required>
                     </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-lg">Guardar</button>
-                        <button type="submit" class="btn btn-success btn-lg">Guardar y crear Unidad</button>
-                        <button type="button" class="btn btn-success btn-lg">
-                            <a class="underlineHover" type="" href="../Consorcio/Listar">Cancelar</a>
-                        </button>
+
+                    <div class="row">
+                        <div class="col-3 offset-9">
+                            <button type="submit" class="btn btn-primary" name="accion" value="Guardar">Guardar</button>
+                            <button type="submit" class="btn btn-primary" name="accion" value="GuardarCrear">Guardar y crear otro</button>
+                            <button type="submit" class="btn btn-primary" name="accion" value="GuardarCrearUnidad">Guardar y crear Unidad</button>
+                            <button type="button" class="btn btn-primary">
+                                <a class="" type="" href="../Consorcio/Listar">Cancelar</a>
+                            </button>
+                        </div> 
                     </div>
                 </form>
             </div>
         </div>
+        </section>
     </body>
 </html>

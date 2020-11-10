@@ -24,39 +24,60 @@ namespace Consorcio.Controllers
         public ActionResult Listar()
         {
             int id = (int)Session["idUser"];
+            Session["listaProvincias"] = "";
             List<ServicioNegocio.EF.Consorcio> consorcios = consorcioService.Listar(id);
-           // List<Provincia> provincias = provinciaService.Listar();
+
+            if ("".Equals(Session["listaProvincias"]))
+            {
+                List<Provincia> provincias = provinciaService.Listar();
+                Session["listaProvincias"] = provincias;
+            }
             
             return View(consorcios);
         }
 
         public ActionResult ViewCrear()
         {
-            List<Provincia> provincias = provinciaService.Listar();
-            ViewBag.provincias = provincias;
+            //List<Provincia> provincias = provinciaService.Listar();
+            ViewBag.provincias = Session["listaProvincias"];
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult Guardar(ServicioNegocio.EF.Consorcio consorcio)
+        public ActionResult Guardar(ServicioNegocio.EF.Consorcio consorcio, string accion)
         {
             int id = (int)Session["idUser"];
-            consorcio.IdUsuarioCreador = id;
+            string vista = "Listar";
 
-            consorcioService.Guardar(consorcio);
+            switch (accion)
+            {
 
-            return RedirectToAction("Listar");
+                case "Guardar":
+                    consorcio.IdUsuarioCreador = id;
+                    consorcioService.Guardar(consorcio);
+                    return RedirectToAction("Listar");
+
+                case "GuardarCrear":
+                    consorcio.IdUsuarioCreador = id;
+                    consorcioService.Guardar(consorcio);
+                    return RedirectToAction("ViewCrear");
+
+                case "GuardarCrearUnidad":
+                    return Redirect("/productos/lista");
+            }
+            return RedirectToAction(vista);
         }
 
         public ActionResult ViewEliminarConsorcio(string id) {
 
-            TempData["idConsorcio"] = "id";
+            TempData["idConsorcio"] = id;
 
             return View();
         }
-        public ActionResult Eliminar(){
-            int idConsorcio = int.Parse((String)TempData["idConsorcio"]);
+        public ActionResult Eliminar(string id)
+        {
+            int idConsorcio = int.Parse((String) id);
 
             consorcioService.Eliminar(idConsorcio);
 
@@ -66,14 +87,11 @@ namespace Consorcio.Controllers
         public ActionResult ViewEditar(string id)
         {
             ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
-            int idConsorcio = int.Parse(id);
+            int idConsorcio = int.Parse((String) id);
 
-            consorcio = consorcioService.Buscar(idConsorcio);
-            if (consorcio == null)
-            {
-                TempData["Message"] = "El consorcio elegido no existe";
-                return Redirect("/consorcio/listar");
-            }
+            consorcio= consorcioService.Buscar(idConsorcio);
+
+            ViewBag.provincias = Session["listaProvincias"];
 
             return View(consorcio);
         }
@@ -81,6 +99,9 @@ namespace Consorcio.Controllers
         [HttpPost]
         public ActionResult GuardarEdicion(ServicioNegocio.EF.Consorcio consorcio)
         {
+            int id = (int)Session["idUser"];
+            consorcio.IdUsuarioCreador = id;
+
             consorcioService.Editar(consorcio);
 
             return RedirectToAction("Listar");

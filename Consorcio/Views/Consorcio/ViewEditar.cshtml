@@ -1,8 +1,16 @@
 ﻿@model ServicioNegocio.EF.Consorcio
 
-@{
-    Layout = null;
-}
+@{ Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
+
+    List<ServicioNegocio.EF.Provincia> provincias = ViewBag.provincias as List<ServicioNegocio.EF.Provincia>;
+
+    List<SelectListItem> provinciaItems = provincias.Select(o => new SelectListItem()
+    {
+        Text = o.Nombre,
+        Value = o.IdProvincia.ToString()
+    }).ToList();
+
+    provinciaItems.Insert(0, new SelectListItem() { Value = "", Text = "Seleccione Provincia" }); }
 
 <html>
     <head>
@@ -29,7 +37,8 @@
                     </div>
                     <div class="form-group">
                         <label for="pwd">Provincia:</label>
-                        <input type="text" class="form-control" id="IdProvincia" name="IdProvincia" value="@Html.DisplayFor(model => model.IdProvincia)" placeholder="Ingrese Provincia" required>
+                    @Html.DropDownListFor(Model => Model.IdProvincia, provinciaItems)
+                    <input type="hidden" name="IdProvincia" value="@Html.DisplayFor(model => model.IdProvincia)">
                     </div>
                     <div class="form-group">
                         <label for="username">Ciudad:</label>
@@ -48,6 +57,9 @@
                         <input type="text" class="form-control" id="DiaVencimientoExpensas" value="@Html.DisplayFor(model => model.DiaVencimientoExpensas)" name="DiaVencimientoExpensas" placeholder="Re-Ingrese Dia" required>
                     </div>
                     <div class="form-group">
+	                    <input type="hidden" name="IdConsorcio" value="@Html.DisplayFor(model => model.IdConsorcio)">
+	                </div>
+	                <div class="form-group">
                         <button type="submit" class="btn btn-success btn-lg">Guardar</button>
                         <button type="button" class="btn btn-success btn-lg">
                             <a class="underlineHover" type="" href="/Consorcio/Listar">Cancelar</a>

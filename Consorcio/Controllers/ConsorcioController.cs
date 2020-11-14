@@ -13,7 +13,6 @@ namespace Consorcio.Controllers
         ConsorcioService consorcioService;
         ProvinciaService provinciaService;
 
-
         public ConsorcioController()
         {
             consorcioService = new ConsorcioService();

@@ -20,18 +20,25 @@ namespace Consorcio.Controllers
 
         }
         // GET: Consorcio
-        public ActionResult Listar()
+        public ActionResult Listar(int? posicion)
         {
+            if (posicion == null)
+            {
+                posicion = 0;
+            }
+
             int id = (int)Session["idUser"];
             Session["listaProvincias"] = "";
-            List<ServicioNegocio.EF.Consorcio> consorcios = consorcioService.Listar(id);
 
             if ("".Equals(Session["listaProvincias"]))
             {
                 List<Provincia> provincias = provinciaService.Listar();
                 Session["listaProvincias"] = provincias;
             }
-            
+
+            int totalregistros = 0;
+            List<ServicioNegocio.EF.Consorcio> consorcios = consorcioService.PaginarConsorcio(posicion.GetValueOrDefault(), ref totalregistros, id);
+            ViewBag.TotalRegistros = totalregistros;
             return View(consorcios);
         }
 

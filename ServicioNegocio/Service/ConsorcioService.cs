@@ -44,5 +44,12 @@ namespace ServicioNegocio.Service
         {
             consorcioRepository.Editar(consorcio);
         }
+
+        public List<Consorcio> PaginarConsorcio(int posicion, ref int totalregistros, int idUsuario)
+        {
+            List<Consorcio> consorcios = consorcioRepository.PaginarConsorcio(posicion, ref totalregistros, idUsuario);
+
+            return consorcios;
+        }
     }
 }

@@ -1,13 +1,4 @@
-﻿html {
-    background: url("'../Img/background.jpg'") no-repeat;
-    background-size: cover;
-    min-height: 100%;
-}
-
-body {
-    background-color: transparent;
-}
-
+﻿
 #registration-form {
     max-width: 800px;
     margin: 120px auto;
@@ -15,7 +6,7 @@ body {
 
     #registration-form .image {
         float: left;
-        background-image: url('../Img/desk.jpg');
+        background-image: url('../Img/edificios.jpg');
         height: 500px;
         width: 50%;
         background-size: cover;

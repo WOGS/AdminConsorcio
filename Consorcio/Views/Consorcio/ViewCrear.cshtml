@@ -12,67 +12,59 @@
 
     provinciaItems.Insert(0, new SelectListItem() { Value = "", Text = "Seleccione Provincia" }); }
 
-<!DOCTYPE html>
 
-<html>
 
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="utf-8">
-        <title>Formulario de Alta</title>
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="~/CSS/Style.css">
-    </head>
+<section class="d-flex align-items-center" id="registration-form">
+    <div class="container ">
+        <div class="row ">
+                <div class="col text-center box-form">
+                    <h2>Nuevo Consorcio</h2>
+                    <br>
 
-    <body>
-        <section>
-        <div class="container" id="registration-form">
-            <div class="image"></div>
-            <div class="frm">
-                <h1>Nuevo Consorcio</h1>
-                <form action="Guardar" method="post">
-                    <div class="form-group">
-                        <label for="Nombre">Nombre:</label>
-                        <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Ingrese Nombre" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Provincia:</label>
-                        @Html.DropDownListFor(Model => Model.IdProvincia, provinciaItems)
-                        <input type="hidden" name="IdProvincia" value="@Html.DisplayFor(model => model.IdProvincia)">
-                        <!--input type="text" class="form-control" id="IdProvincia" name="IdProvincia" placeholder="Ingrese Provincia" required-->
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Ciudad:</label>
-                        <input type="text" class="form-control" id="Ciudad" name="Ciudad" placeholder="Re-Ingrese Ciudad" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Calle:</label>
-                        <input type="text" class="form-control" id="Calle" name="Calle" placeholder="Re-Ingrese Calle" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Altura:</label>
-                        <input type="text" class="form-control" id="Altura" name="Altura" placeholder="Re-Ingrese Altura" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Dia Venc. Expensas:</label>
-                        <input type="text" class="form-control" id="DiaVencimientoExpensas" name="DiaVencimientoExpensas" placeholder="Re-Ingrese Dia" required>
-                    </div>
+                    <div class="image"></div>
+                    <div class="frm">
 
-                    <div class="row">
-                        <div class="col-3 offset-9">
-                            <button type="submit" class="btn btn-primary" name="accion" value="Guardar">Guardar</button>
-                            <button type="submit" class="btn btn-primary" name="accion" value="GuardarCrear">Guardar y crear otro</button>
-                            <button type="submit" class="btn btn-primary" name="accion" value="GuardarCrearUnidad">Guardar y crear Unidad</button>
-                            <button type="button" class="btn btn-primary">
-                                <a class="" type="" href="../Consorcio/Listar">Cancelar</a>
-                            </button>
-                        </div> 
+                        <form action="Guardar" method="post">
+                            <div class="form-group text-left">
+                                <label for="Nombre">Nombre:</label>
+                                <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Ingrese Nombre" required>
+                            </div>
+                            <div class="form-group text-left">
+                                <label for="pwd">Provincia:</label>
+                                @Html.DropDownListFor(Model => Model.IdProvincia, provinciaItems)
+                                <input type="hidden" name="IdProvincia" value="@Html.DisplayFor(model => model.IdProvincia)">
+                                <!--input type="text" class="form-control" id="IdProvincia" name="IdProvincia" placeholder="Ingrese Provincia" required-->
+                            </div>
+                            <div class="form-group text-left">
+                                <label for="username">Ciudad:</label>
+                                <input type="text" class="form-control" id="Ciudad" name="Ciudad" placeholder="Re-Ingrese Ciudad" required>
+                            </div>
+                            <div class="form-group text-left">
+                                <label for="username">Calle:</label>
+                                <input type="text" class="form-control" id="Calle" name="Calle" placeholder="Re-Ingrese Calle" required>
+                            </div>
+                            <div class="form-group text-left">
+                                <label for="username">Altura:</label>
+                                <input type="text" class="form-control" id="Altura" name="Altura" placeholder="Re-Ingrese Altura" required>
+                            </div>
+                            <div class="form-group text-left">
+                                <label for="username">Dia Venc. Expensas:</label>
+                                <input type="text" class="form-control" id="DiaVencimientoExpensas" name="DiaVencimientoExpensas" placeholder="Re-Ingrese Dia" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-10 text-right">
+                                    <button type="submit" class="btn btn-primary btnForm" name="accion" value="Guardar">Guardar</button>
+                                    <button type="submit" class="btn btn-primary btnForm" name="accion" value="GuardarCrear">Guardar y crear otro</button>
+                                    <button type="submit" class="btn btn-primary btnForm" name="accion" value="GuardarCrearUnidad">Guardar y crear Unidad</button>
+                                    <button type="button" class="btn btn-primary btnForm">
+                                        <a class="" type="" href="../Consorcio/Listar">Cancelar</a>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </form>
-            </div>
+                </div>
         </div>
-        </section>
-    </body>
-</html>
+    </div>
+</section>
+

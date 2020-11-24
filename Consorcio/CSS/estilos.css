@@ -103,3 +103,94 @@ table a {
 .breadcrumb a {
     color: #ffa500b5 !important
 }
+
+
+
+
+#registration-form {
+    max-width: 800px;
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+    #registration-form .image {
+        float: left;
+        background-image: url('../Img/edificios.jpg');
+        border-radius: 10px;
+        height: 520px;
+        width: 55%;
+        background-size: cover;
+        background-position: 35%;
+        margin-bottom: 200px;
+    }
+
+    #registration-form .frm {
+        float: right;
+        height: 700px;
+        width: 45%;
+        min-width: 250px;
+        padding: 0 35px;
+        background-size: 100% 100%;
+        background-color: white;
+        margin-bottom: 25px;
+    }
+
+    #registration-form h1 {
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+
+    #registration-form .form-control {
+        width: 90%;
+        padding: 12px 20px;
+        height: auto;
+    }
+
+@media screen and (max-width: 700px) {
+    #registration-form .image {
+        width: 30%;
+        background-position: 60%;
+    }
+
+    #registration-form .frm {
+        width: 70%;
+    }
+
+    #registration-form .form-control {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #registration-form .image {
+        display: none;
+    }
+
+    #registration-form .frm {
+        width: 100%;
+    }
+
+    #registration-form h1 {
+        text-align: center;
+    }
+
+    #registration-form .btn {
+        width: 100%;
+        margin-top: 20px;
+    }
+}
+
+a{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.btnForm{
+    margin-bottom: 8px;
+}
+ 

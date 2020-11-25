@@ -36,9 +36,16 @@
             </div>
         </div>
     </nav>
-    
-     @RenderBody()
-    
+    <div class="row">
+        <div class="span12">
+            @Html.MvcSiteMap().SiteMapPath("_BootstrapSiteMapPathHelperModel")
+        </div>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+
+
 
     <!-- Footer -->
     @Html.Partial("Footer")

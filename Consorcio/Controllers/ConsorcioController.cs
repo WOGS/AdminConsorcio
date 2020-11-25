@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MvcSiteMapProvider;
+using MvcSiteMapProvider.Web.Mvc.Filters;
 
 namespace Consorcio.Controllers
 {
@@ -40,7 +42,6 @@ namespace Consorcio.Controllers
         {
             //List<Provincia> provincias = provinciaService.Listar();
             ViewBag.provincias = Session["listaProvincias"];
-
             return View();
         }
 
@@ -84,6 +85,7 @@ namespace Consorcio.Controllers
             return RedirectToAction("Listar");
         }
 
+        //[SiteMapTitle("title")]
         public ActionResult ViewEditar(string id)
         {
             ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
@@ -92,6 +94,8 @@ namespace Consorcio.Controllers
             consorcio= consorcioService.Buscar(idConsorcio);
 
             ViewBag.provincias = Session["listaProvincias"];
+
+            //ViewData["Title"] = "Consorcio \"Villanova\"";
 
             return View(consorcio);
         }
@@ -106,5 +110,36 @@ namespace Consorcio.Controllers
 
             return RedirectToAction("Listar");
         }
+
+        //Para el breadCrumb
+        private static void SetConsorcioBreadcrumbTitle(string id)
+        {
+            ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
+            int idConsorcio = int.Parse((String)id);
+
+            ConsorcioService consorcioService1 = new ConsorcioService();
+            consorcio = consorcioService1.Buscar(idConsorcio);
+
+            string nombreConsorcio = consorcio.Nombre;
+
+            var node = SiteMaps.Current.CurrentNode;
+            FindParentNode(node, "ConsorcioX", $"Consorcio \"{nombreConsorcio}\"");
+        }
+
+        private static void FindParentNode(ISiteMapNode node, string oldTitle, string newTitle)
+        {
+            if (node.Title == oldTitle)
+            {
+                node.Title = newTitle;
+            }
+            else
+            {
+                if (node.ParentNode != null)
+                {
+                    FindParentNode(node.ParentNode, oldTitle, newTitle);
+                }
+            }
+        }
+
     }
 }

@@ -14,7 +14,6 @@
         </h2>
     </div>
 </section>
-
 <section id="listado" class="ta-c">
     <div class="container">
         <div class="row">
@@ -37,14 +36,14 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <th scope="row"> <a href="/Unidad/vieweditar/@item.IdUnidad">@Html.DisplayFor(modelItem => item.Nombre)</a></th>
-                                <td>@Html.DisplayFor(modelItem => item.ApellidoPropietario)</td>
-                                <td>@Html.DisplayFor(modelItem => item.NombrePropietario)</td>
-                                <td>@Html.DisplayFor(modelItem => item.EmailPropietario)</td>
-                                <th scope="row"> <a href="/Unidad/ViewEliminar/@item.IdUnidad"><i class="fas fa-times-circle"></i></a></th>
+                                <tr>
+                                    <th scope="row"> <a href="/Unidad/vieweditar/@item.IdUnidad">@Html.DisplayFor(modelItem => item.Nombre)</a></th>
+                                    <td>@Html.DisplayFor(modelItem => item.ApellidoPropietario)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.NombrePropietario)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.EmailPropietario)</td>
+                                    <th scope="row"> <a href="/Unidad/ViewEliminar/@item.IdUnidad"><i class="fas fa-times-circle"></i></a></th>
 
-                            </tr>
+                                </tr>
                             }
                         </tbody>
                     </table>

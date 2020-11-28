@@ -10,17 +10,17 @@ namespace ServicioNegocio.Service
 {
     public class ConsorcioService
     {
-        ConsorcioRepository consorcioRepository;
+            ConsorcioRepository consorcioRepository;
 
-        public ConsorcioService() {
-            consorcioRepository = new ConsorcioRepository();
-        }
+            public ConsorcioService() {
+                consorcioRepository = new ConsorcioRepository();
+            }
 
-        public List<Consorcio> Listar(int idUsuario)
-        {
-            List<Consorcio> consorcios = consorcioRepository.Listar(idUsuario);
-            return consorcios;
-        }
+            public List<Consorcio> Listar(int idUsuario)
+            {
+                List<Consorcio> consorcios = consorcioRepository.Listar(idUsuario);
+                return consorcios;
+            }
 
         public void Guardar(Consorcio consorcio)
         {
@@ -43,6 +43,13 @@ namespace ServicioNegocio.Service
         public void Editar(Consorcio consorcio)
         {
             consorcioRepository.Editar(consorcio);
+        }
+
+        public List<Consorcio> PaginarConsorcio(int posicion, ref int totalregistros, int idUsuario)
+        {
+            List<Consorcio> consorcios = consorcioRepository.PaginarConsorcio(posicion, ref totalregistros, idUsuario);
+
+            return consorcios;
         }
     }
 }

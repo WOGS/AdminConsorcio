@@ -64,5 +64,13 @@ namespace ServicioNegocio.Repository
             consorcioUpdate.DiaVencimientoExpensas = consorcio.DiaVencimientoExpensas;
         contexto.SaveChanges();
         }
+
+        public List<Consorcio> PaginarConsorcio(int posicion, ref int totalregistros, int idUsuario)
+        {
+            totalregistros = this.contexto.Consorcio.Count();
+            var consulta = (from con in contexto.Consorcio where con.IdUsuarioCreador == idUsuario select con).OrderBy(z => z.IdConsorcio).Skip(posicion).Take(4).ToList();
+            List<Consorcio> consorcios = consulta;
+            return consorcios;
+        }
     }
 }

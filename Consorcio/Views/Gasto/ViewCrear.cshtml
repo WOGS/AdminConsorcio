@@ -1,0 +1,114 @@
+﻿@model IEnumerable<ServicioNegocio.EF.Gasto>
+
+@{
+    ViewBag.Title = "Nuevo Gasto";
+    Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
+
+    List<ServicioNegocio.EF.TipoGasto> tiposgastos = ViewBag.tiposgastos as List<ServicioNegocio.EF.TipoGasto>;
+
+    //List<SelectListItem> tgastosItems = tiposgastos.Select(x => new SelectListItem()
+    //{
+    //    Text = x.Nombre,
+    //    Value = x.IdTipoGasto.ToString()
+    //}).ToList();
+
+    //tgastosItems.Insert(0, new SelectListItem()
+    //{
+    //    Value = "",
+    //    Text = "Seleccione Tipo de Gasto"
+    //});
+}
+<section id="consorcios" class="ta-c">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Mis Consorcios</a></li>
+                        <li class="breadcrumb-item"><a href="#">Consorcio 'Edificio Godoy Cruz'</a></li>
+                        <li class="breadcrumb-item"><a href="#">Gastos</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Cargar Nuevo Gasto</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h2>Consorcio 'Edificio Godoy Cruz' - Cargo Nuevo Gasto</h2>
+                <br>
+                <form class="box-form" action="AltaGasto" method="post">
+                    <div class="form-group row">
+                        <label for="consorcio" class="col-sm-2 col-form-label">Consorcio</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="consorcio" value="Edificio Godoy Cruz"
+                                   disabled>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="tipoGasto" class="col-sm-2 col-form-label">Tipo Gasto</label>
+                        @Html.DropDownList("tiposgastos", (IEnumerable
+                        <SelectListItem>)ViewBag.tiposgastos)
+                        @*@Html.DropDownListFor(Model => Model. , tiposgastos, new { @class = "form-control" })*@
+
+                        <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="nombre" placeholder="Ingrese Nombre">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
+                        <div class="col-sm-4">
+                            <textarea type="text" class="form-control" id="descripcion"
+                                      placeholder="Ingrese Descripcion (Opcional)"></textarea>
+                        </div>
+                        <label for="fecha" class="col-sm-2 col-form-label">Fecha</label>
+                        <div class="col-sm-4">
+                            <input type="date" class="form-control" id="fecha">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label for="expensa" class="col-sm-2 col-form-label">Expensa</label>
+                        <div class="input-group col-sm-10">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Año</div>
+                            </div>
+                            <input type="date" class="form-control" id="ano">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Mes</div>
+                            </div>
+                            <input type="date" class="form-control" id="mes">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="comprobante" class="col-sm-2 col-form-label">Comprobante</label>
+                        <div class="col-sm-10">
+                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="monto" class="col-sm-2 col-form-label">Monto</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="monto" placeholder="Ingrese Monto">
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-4">
+                            <button class="btn btn-primary">Guardar</button>
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-warning cw">Guardar y Crear Otro Gasto</button>
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-secondary" href="index.html">Cancelar</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+

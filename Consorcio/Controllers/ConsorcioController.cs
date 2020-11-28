@@ -55,6 +55,7 @@ namespace Consorcio.Controllers
 
             return View();
         }
+       
         public ActionResult Eliminar(){
             int idConsorcio = int.Parse((String)TempData["idConsorcio"]);
 

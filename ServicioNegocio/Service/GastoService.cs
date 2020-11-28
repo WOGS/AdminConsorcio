@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ServicioNegocio.Repository;
+using ServicioNegocio.EF;
+
+namespace ServicioNegocio.Service
+{
+    public class GastoService
+    {
+        GastoRepository gastoRepository;
+
+
+        public GastoService()
+        {
+            gastoRepository = new GastoRepository();
+        }
+
+        public List<Gasto> Listar(int idConsorcio)
+        {
+            List<Gasto> gastos = gastoRepository.Listar(idConsorcio);
+            return gastos;
+        }
+
+
+    }
+}

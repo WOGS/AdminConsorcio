@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PW3_TP_20202CModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PW3_TP_20202CModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Consorcio">
           <Key>
             <PropertyRef Name="IdConsorcio" />
@@ -18,6 +18,17 @@
           <Property Name="DiaVencimientoExpensas" Type="int" Nullable="false" />
           <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
           <Property Name="IdUsuarioCreador" Type="int" />
+        </EntityType>
+        <EntityType Name="Expensa">
+          <Key>
+            <PropertyRef Name="IdExpensa" />
+          </Key>
+          <Property Name="IdExpensa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnioExpensa" Type="int" Nullable="false" />
+          <Property Name="MesExpensa" Type="int" Nullable="false" />
+          <Property Name="GastoTotal" Type="int" Nullable="false" />
+          <Property Name="ExpensaUnidad" Type="int" Nullable="false" />
+          <Property Name="IdConsorcio" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Gasto">
           <Key>
@@ -42,6 +53,16 @@
           </Key>
           <Property Name="IdProvincia" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TipoGasto">
           <Key>
@@ -98,6 +119,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_exp_consorcio">
+          <End Role="Consorcio" Type="Self.Consorcio" Multiplicity="1" />
+          <End Role="Expensa" Type="Self.Expensa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consorcio">
+              <PropertyRef Name="IdConsorcio" />
+            </Principal>
+            <Dependent Role="Expensa">
+              <PropertyRef Name="IdConsorcio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Gasto_Consorcio">
           <End Role="Consorcio" Type="Self.Consorcio" Multiplicity="1" />
           <End Role="Gasto" Type="Self.Gasto" Multiplicity="*" />
@@ -135,7 +168,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Unidad_Consorcio">
-          <End Role="Consorcio" Type="Self.Consorcio" Multiplicity="1" />
+          <End Role="Consorcio" Type="Self.Consorcio" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Unidad" Type="Self.Unidad" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Consorcio">
@@ -158,10 +193,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="CalcularExpensa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdConsorcio" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="PW3_TP_20202CModelStoreContainer">
           <EntitySet Name="Consorcio" EntityType="Self.Consorcio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Expensa" EntityType="Self.Expensa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gasto" EntityType="Self.Gasto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoGasto" EntityType="Self.TipoGasto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Unidad" EntityType="Self.Unidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
@@ -172,6 +212,10 @@
           <AssociationSet Name="FK_Consorcio_Usuario" Association="Self.FK_Consorcio_Usuario">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Consorcio" EntitySet="Consorcio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exp_consorcio" Association="Self.FK_exp_consorcio">
+            <End Role="Consorcio" EntitySet="Consorcio" />
+            <End Role="Expensa" EntitySet="Expensa" />
           </AssociationSet>
           <AssociationSet Name="FK_Gasto_Consorcio" Association="Self.FK_Gasto_Consorcio">
             <End Role="Consorcio" EntitySet="Consorcio" />
@@ -194,8 +238,7 @@
             <End Role="Unidad" EntitySet="Unidad" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PW3_TP_20202CModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -216,6 +259,7 @@
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Consorcio_Usuario" FromRole="Consorcio" ToRole="Usuario" />
           <NavigationProperty Name="Gasto" Relationship="Self.FK_Gasto_Consorcio" FromRole="Consorcio" ToRole="Gasto" />
           <NavigationProperty Name="Unidad" Relationship="Self.FK_Unidad_Consorcio" FromRole="Consorcio" ToRole="Unidad" />
+          <NavigationProperty Name="Expensa" Relationship="PW3_TP_20202CModel.FK_exp_consorcio" FromRole="Consorcio" ToRole="Expensa" />
         </EntityType>
         <EntityType Name="Gasto">
           <Key>
@@ -401,7 +445,56 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Unidad" EntitySet="Unidad" />
           </AssociationSet>
+          <EntitySet Name="Expensa" EntityType="PW3_TP_20202CModel.Expensa" />
+          <EntitySet Name="sysdiagrams" EntityType="PW3_TP_20202CModel.sysdiagrams" />
+          <AssociationSet Name="FK_exp_consorcio" Association="PW3_TP_20202CModel.FK_exp_consorcio">
+            <End Role="Consorcio" EntitySet="Consorcio" />
+            <End Role="Expensa" EntitySet="Expensa" />
+          </AssociationSet>
+          <FunctionImport Name="CalcularExpensa" ReturnType="Collection(PW3_TP_20202CModel.CalcularExpensa_Result)">
+            <Parameter Name="IdConsorcio" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <EntityType Name="Expensa">
+          <Key>
+            <PropertyRef Name="IdExpensa" />
+          </Key>
+          <Property Name="IdExpensa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnioExpensa" Type="Int32" Nullable="false" />
+          <Property Name="MesExpensa" Type="Int32" Nullable="false" />
+          <Property Name="GastoTotal" Type="Int32" Nullable="false" />
+          <Property Name="ExpensaUnidad" Type="Int32" Nullable="false" />
+          <Property Name="IdConsorcio" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Consorcio" Relationship="PW3_TP_20202CModel.FK_exp_consorcio" FromRole="Expensa" ToRole="Consorcio" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_exp_consorcio">
+          <End Type="PW3_TP_20202CModel.Consorcio" Role="Consorcio" Multiplicity="1" />
+          <End Type="PW3_TP_20202CModel.Expensa" Role="Expensa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consorcio">
+              <PropertyRef Name="IdConsorcio" />
+            </Principal>
+            <Dependent Role="Expensa">
+              <PropertyRef Name="IdConsorcio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="CalcularExpensa_Result">
+          <Property Type="Int32" Name="AnioExpensa" Nullable="false" />
+          <Property Type="Int32" Name="MesExpensa" Nullable="false" />
+          <Property Type="Int32" Name="GastoTotal" Nullable="false" />
+          <Property Type="Int32" Name="ExpensaUnidad" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -483,6 +576,39 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Expensa">
+            <EntityTypeMapping TypeName="PW3_TP_20202CModel.Expensa">
+              <MappingFragment StoreEntitySet="Expensa">
+                <ScalarProperty Name="IdConsorcio" ColumnName="IdConsorcio" />
+                <ScalarProperty Name="ExpensaUnidad" ColumnName="ExpensaUnidad" />
+                <ScalarProperty Name="GastoTotal" ColumnName="GastoTotal" />
+                <ScalarProperty Name="MesExpensa" ColumnName="MesExpensa" />
+                <ScalarProperty Name="AnioExpensa" ColumnName="AnioExpensa" />
+                <ScalarProperty Name="IdExpensa" ColumnName="IdExpensa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PW3_TP_20202CModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CalcularExpensa" FunctionName="PW3_TP_20202CModel.Store.CalcularExpensa">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PW3_TP_20202CModel.CalcularExpensa_Result">
+                <ScalarProperty Name="AnioExpensa" ColumnName="AnioExpensa" />
+                <ScalarProperty Name="MesExpensa" ColumnName="MesExpensa" />
+                <ScalarProperty Name="GastoTotal" ColumnName="GastoTotal" />
+                <ScalarProperty Name="ExpensaUnidad" ColumnName="ExpensaUnidad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

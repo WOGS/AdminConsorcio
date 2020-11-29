@@ -18,6 +18,9 @@
         <AssociationConnector Association="PW3_TP_20202CModel.FK_Gasto_TipoGasto" ManuallyRouted="false" />
         <AssociationConnector Association="PW3_TP_20202CModel.FK_Gasto_Usuario" ManuallyRouted="false" />
         <AssociationConnector Association="PW3_TP_20202CModel.FK_Unidad_Usuario" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PW3_TP_20202CModel.Expensa" Width="1.5" PointX="5.25" PointY="8.375" />
+        <EntityTypeShape EntityType="PW3_TP_20202CModel.sysdiagrams" Width="1.5" PointX="5.375" PointY="0.75" />
+        <AssociationConnector Association="PW3_TP_20202CModel.FK_exp_consorcio" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

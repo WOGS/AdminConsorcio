@@ -19,6 +19,7 @@ namespace ServicioNegocio.EF
         {
             this.Gasto = new HashSet<Gasto>();
             this.Unidad = new HashSet<Unidad>();
+            this.Expensa = new HashSet<Expensa>();
         }
     
         public int IdConsorcio { get; set; }
@@ -37,5 +38,7 @@ namespace ServicioNegocio.EF
         public virtual ICollection<Gasto> Gasto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Unidad> Unidad { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Expensa> Expensa { get; set; }
     }
 }

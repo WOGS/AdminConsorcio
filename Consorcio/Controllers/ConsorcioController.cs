@@ -1,8 +1,13 @@
-﻿using ServicioNegocio.EF;
+﻿using Consorcio.Models;
+using Newtonsoft.Json;
+using ServicioNegocio.EF;
+using ServicioNegocio.Models;
 using ServicioNegocio.Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -47,30 +52,41 @@ namespace Consorcio.Controllers
             //List<Provincia> provincias = provinciaService.Listar();
             ViewBag.provincias = Session["listaProvincias"];
 
-            return View();
+            ConsorcioModel consorcioModel = new ConsorcioModel();
+
+            consorcioModel.provincias = (List<Provincia>)Session["listaProvincias"];
+
+            return View(consorcioModel);
         }
 
         [HttpPost]
-        public ActionResult Guardar(ServicioNegocio.EF.Consorcio consorcio, string accion)
+        public ActionResult Guardar(Models.ConsorcioModel consorcio, string accion)
         {
             int id = (int)Session["idUser"];
             string vista = "Listar";
 
+            ServicioNegocio.EF.Consorcio consorcioEF = new ServicioNegocio.EF.Consorcio();
+
+            consorcioEF.Nombre = consorcio.Nombre;
+            consorcioEF.IdUsuarioCreador = id;
+            consorcioEF.Altura = consorcio.Altura;
+            consorcioEF.Calle = consorcio.Calle;
+            consorcioEF.Ciudad = consorcio.Ciudad;
+            consorcioEF.DiaVencimientoExpensas = consorcio.DiaVencimientoExpensas;
+            consorcioEF.IdProvincia = consorcio.idProvincia;
+            int idNuevoConsorcio = consorcioService.Guardar(consorcioEF);
+
             switch (accion)
             {
-
                 case "Guardar":
-                    consorcio.IdUsuarioCreador = id;
-                    consorcioService.Guardar(consorcio);
                     return RedirectToAction("Listar");
 
                 case "GuardarCrear":
-                    consorcio.IdUsuarioCreador = id;
-                    consorcioService.Guardar(consorcio);
                     return RedirectToAction("ViewCrear");
 
                 case "GuardarCrearUnidad":
-                    return Redirect("/productos/lista");
+                    Session["idConsorcio"] = idNuevoConsorcio;
+                    return Redirect("/Unidad/ViewCrear");
             }
             return RedirectToAction(vista);
         }
@@ -97,6 +113,10 @@ namespace Consorcio.Controllers
 
             consorcio= consorcioService.Buscar(idConsorcio);
 
+            int contarUnidades = consorcioService.ContarUnidades(idConsorcio);
+
+            ViewBag.contarUnidades = contarUnidades;
+
             ViewBag.provincias = Session["listaProvincias"];
 
             return View(consorcio);
@@ -111,6 +131,31 @@ namespace Consorcio.Controllers
             consorcioService.Editar(consorcio);
 
             return RedirectToAction("Listar");
+        }
+
+        public ActionResult Expensas(string id)
+        {
+            var url = $"https://localhost:44321/api/Expensa/" + id;
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+
+            ExpensaModel result = new ExpensaModel();
+
+            using (WebResponse response = request.GetResponse())
+            {
+                using (Stream strReader = response.GetResponseStream())
+                {
+                    using (StreamReader objReader = new StreamReader(strReader))
+                    {
+                        string responseBody = objReader.ReadToEnd();
+                        //result = JsonConvert.DeserializeObject<List<Expensa>>(responseBody);
+                        result = JsonConvert.DeserializeObject<ExpensaModel>(responseBody);
+                    }
+                }
+            }
+            return View(result);
         }
     }
 }

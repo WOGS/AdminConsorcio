@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Consorcio.Models.UsuarioModel
+@{
     ViewBag.Title = "Registrarse";
     Layout = "~/Views/Shared/_LayoutInicial.cshtml";
 }
@@ -9,23 +10,25 @@
         <h2><b>Registrarse</b></h2>
         <hr>
         <form action="Alta" method="post">
-            <div class="row px-3">
-                <label class="col-form-label">
-                    <h6 class="">Dirección Email</h6>
-                </label>
-                <input class="form-control" type="text" id="Email" name="email" placeholder="Ingrese Email" required>
+            <div class="form-group text-black-75 text-left">
+                <label for="Email">Direccion Email:</label><br />
+                @Html.EditorFor(Model => Model.Email)
+                <div class="form-group text-danger">
+                    @Html.ValidationMessageFor(Model => Model.Email)
+                </div>
             </div>
-            <div class="row px-3">
-                <label class="col-form-label">
-                    <h6 class="">Contraseña</h6>
-                </label>
-                <input type="password" class="form-control" id="Password" name="Password" placeholder="Ingrese Contraseña" required>
+            <div class="form-group text-black-75 text-left">
+                <label for="NombreUnidad">Ingresar Contraseña:</label><br />
+                @Html.EditorFor(Model => Model.Password)
+                <div class="form-group text-danger">
+                    @Html.ValidationMessageFor(Model => Model.Password)
+                </div>
             </div>
             <div class="row px-3">
                 <label class="col-form-label">
                     <h6 class="">Reingresar Contraseña</h6>
                 </label>
-                <input type="password" id="Password2" class="form-control" name="Password2" placeholder="Reingrese Contraseña" required>
+                <input type="password" id="Password2" class="form-control" name="Password2" placeholder="Reingrese Contraseña">
             </div>
             <br>
             <div class="row mb-3 px-3">

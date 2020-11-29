@@ -258,6 +258,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConsorcioModel.cs" />
+    <Compile Include="Models\UnidadModel.cs" />
+    <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -303,6 +306,7 @@
     <Content Include="Views\Unidad\ViewEditar.cshtml" />
     <Content Include="Views\Unidad\ViewCrear.cshtml" />
     <Content Include="Views\Unidad\ViewEliminar.cshtml" />
+    <Content Include="Views\Consorcio\Expensas.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -312,9 +316,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ApiExpensas\ApiExpensas.csproj">
+      <Project>{0c2ab9f2-c2da-4d80-a5ce-3d870b5f7805}</Project>
+      <Name>ApiExpensas</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServicioNegocio\ServicioNegocio.csproj">
       <Project>{419ACFF1-3AB6-41B6-8242-CB6B5A4D6E2D}</Project>
       <Name>ServicioNegocio</Name>

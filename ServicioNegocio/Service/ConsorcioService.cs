@@ -22,9 +22,11 @@ namespace ServicioNegocio.Service
                 return consorcios;
             }
 
-        public void Guardar(Consorcio consorcio)
+        public int Guardar(Consorcio consorcio)
         {
-            consorcioRepository.Guardar(consorcio);
+            int id = consorcioRepository.Guardar(consorcio);
+
+            return id;
         }
 
         public void Eliminar(int idConsorcio)
@@ -50,6 +52,13 @@ namespace ServicioNegocio.Service
             List<Consorcio> consorcios = consorcioRepository.PaginarConsorcio(posicion, ref totalregistros, idUsuario);
 
             return consorcios;
+        }
+
+        public int ContarUnidades(int Id)
+        {
+            int cantidad = consorcioRepository.ContarUnidades(Id);
+
+            return cantidad;
         }
     }
 }

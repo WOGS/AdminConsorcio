@@ -22,12 +22,16 @@ namespace ServicioNegocio.Repository
             return consorcios;
         }
 
-        public void Guardar(Consorcio consorcio)
+        public int Guardar(Consorcio consorcio)
         {
             DateTime today = DateTime.Now;
             consorcio.FechaCreacion = today;
             contexto.Consorcio.Add(consorcio);
             contexto.SaveChanges();
+
+            int id = consorcio.IdConsorcio;
+
+            return id;
         }
                 
         public void Eliminar(int idConsorcio)
@@ -71,6 +75,14 @@ namespace ServicioNegocio.Repository
             var consulta = (from con in contexto.Consorcio where con.IdUsuarioCreador == idUsuario select con).OrderBy(z => z.IdConsorcio).Skip(posicion).Take(4).ToList();
             List<Consorcio> consorcios = consulta;
             return consorcios;
+        }
+
+        public int ContarUnidades(int Id)
+        {
+
+            int cantidad = (from uni in contexto.Unidad where uni.IdConsorcio == Id select uni).Count();
+            
+            return cantidad;
         }
     }
 }

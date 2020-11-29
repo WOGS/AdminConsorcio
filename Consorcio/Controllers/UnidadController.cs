@@ -63,7 +63,7 @@ namespace Consorcio.Controllers
                     unidad.IdUsuarioCreador = int.Parse(id);
                     unidad.IdConsorcio = int.Parse(idConsorcio);
                     unidadService.Guardar(unidad);
-                    return RedirectToAction("Listar");
+                    return RedirectToAction("Listar/"+ idConsorcio);
                 case "GuardarCrearOtro":
 
                     unidad.IdUsuarioCreador = int.Parse(id);

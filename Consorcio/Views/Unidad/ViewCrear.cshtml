@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ServicioNegocio.EF.Unidad>
+﻿@model Consorcio.Models.UnidadModel
 @{
     Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
 }
@@ -13,36 +13,49 @@
                 <div class="frm">
                     <form action="Guardar" method="post">
                         <div class="form-group text-left">
-                            <label for="NombreUnidad">Nombre Unidad:</label>
-                            <input type="text" class="form-control" id="NombreUnidad" name="Nombre" placeholder="Ingrese Nombre de la Unidad" required>
-                        </div>
-                        <div class="form-group text-left">
-                            <label for="NombrePropietario">Nombre Propietario:</label>
-                            <input type="text" class="form-control" id="NombrePropietario" name="NombrePropietario" placeholder="Ingrese Provincia" required>
-                        </div>
-                        <div class="form-group text-left">
-                            <label for="ApellidoPropietario">Apellido Propietario:</label>
-                            <input type="text" class="form-control" id="ApellidoPropietario" name="ApellidoPropietario" placeholder="Re-Ingrese Ciudad" required>
-                        </div>
-                        <div class="form-group text-left">
-                            <label for="Email">Email Propietario:</label>
-                            <input type="email" class="form-control" id="Email" name="EmailPropietario" placeholder="Re-Ingrese Calle" required>
-                        </div>
-                        <div class="form-group text-left">
-                            <label for="Superficie">Superficie:</label>
-                            <input type="text" class="form-control" id="Superficie" name="Superficie" placeholder="Re-Ingrese Altura" required>
-                        </div>
-                        <div class="form-group text-left">
-                            <label for="DiaVencimientoExpensas">Dia Venc. Expensas:</label>
-                            <input type="text" class="form-control" id="DiaVencimientoExpensas" name="DiaVencimientoExpensas" placeholder="Re-Ingrese Dia" required>
-                        </div>
-                        <div class="row">
-                            <div class="col-10 text-right">
-                                <button type="submit" class="btn btn-primary btnForm" name="accion" value="Guardar">Guardar</button>
-                                <button type="submit" class="btn btn-primary btnForm" name="accion" value="GuardarCrearOtro">Guardar y crear otro</button>
-                                <button type="button" class="btn btn-primary btnForm">
-                                    <a class="" href="../Unidad/Listar">Cancelar</a>
-                                </button>
+                            <div class="form-group text-black-75 text-left">
+                                <label for="NombreUnidad">Nombre Unidad:</label><br />
+                                @Html.EditorFor(Model => Model.Nombre)
+                                <div class="form-group text-danger">
+                                    @Html.ValidationMessageFor(Model => Model.Nombre)
+                                </div>
+                            </div>
+                            <div class="form-group text-black-75 text-left">
+                                <label for="NombrePropietario">Nombre Propietario:</label><br />
+                                @Html.EditorFor(Model => Model.NombrePropietario)
+                                <div class="form-group text-danger">
+                                    @Html.ValidationMessageFor(Model => Model.NombrePropietario)
+                                </div>
+                            </div>
+                            <div class="form-group text-black-75 text-left">
+                                <label for="ApellidoPropietario">Apellido Propietario:</label><br />
+                                @Html.EditorFor(Model => Model.ApellidoPropietario)
+                                <div class="form-group text-danger">
+                                    @Html.ValidationMessageFor(Model => Model.ApellidoPropietario)
+                                </div>
+                            </div>
+                            <div class="form-group text-black-75 text-left">
+                                <label for="EmailPropietario"> Email:</label><br />
+                                @Html.EditorFor(Model => Model.EmailPropietario)
+                                <div class="form-group text-danger">
+                                    @Html.ValidationMessageFor(Model => Model.EmailPropietario)
+                                </div>
+                            </div>
+                            <div class="form-group text-black-75 text-left">
+                                <label for="Superficie">Superficie(M2):</label><br />
+                                @Html.EditorFor(Model => Model.Superficie)
+                                <div class="form-group text-danger">
+                                    @Html.ValidationMessageFor(Model => Model.Superficie)
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-10 text-right">
+                                    <button type="submit" class="btn btn-primary btnForm" name="accion" value="Guardar">Guardar</button>
+                                    <button type="submit" class="btn btn-primary btnForm" name="accion" value="GuardarCrearOtro">Guardar y crear otro</button>
+                                    <button type="button" class="btn btn-primary btnForm">
+                                        <a class="" href="../Unidad/Listar">Cancelar</a>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </form>

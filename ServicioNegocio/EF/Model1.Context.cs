@@ -12,6 +12,8 @@ namespace ServicioNegocio.EF
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class Contexto : DbContext
     {
@@ -31,5 +33,16 @@ namespace ServicioNegocio.EF
         public virtual DbSet<TipoGasto> TipoGasto { get; set; }
         public virtual DbSet<Unidad> Unidad { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Expensa> Expensa { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+    
+        public virtual ObjectResult<CalcularExpensa_Result> CalcularExpensa(Nullable<int> idConsorcio)
+        {
+            var idConsorcioParameter = idConsorcio.HasValue ?
+                new ObjectParameter("IdConsorcio", idConsorcio) :
+                new ObjectParameter("IdConsorcio", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CalcularExpensa_Result>("CalcularExpensa", idConsorcioParameter);
+        }
     }
 }

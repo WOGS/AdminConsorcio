@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ServicioNegocio.EF.Expensa>
+
+@{
+    ViewBag.Title = "Expensas";
+    Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
+    int pagina = 1;
+}
+
+<section class="d-flex align-items-center">
+    <div class="container text-center position-relative cw" data-aos="fade-in" data-aos-delay="200">
+        <h1>Administración de Consorcios</h1>
+
+    </div>
+</section>
+
+<section id="listado" class="ta-c">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mx-auto">
+                <h2>Listado de Expensas</h2>
+
+                <br>
+
+                <div class="box-form">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Año</th>
+                                <th scope="col">Mes</th>
+                                <th scope="col">Gastos Totales</th>
+                                <th scope="col">Expensas por Unidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.AnioExpensa)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.MesExpensa)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.GastoTotal)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ExpensaUnidad)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

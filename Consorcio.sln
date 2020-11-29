@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consorcio", "Consorcio\Cons
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicioNegocio", "ServicioNegocio\ServicioNegocio.csproj", "{419ACFF1-3AB6-41B6-8242-CB6B5A4D6E2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiExpensas", "ApiExpensas\ApiExpensas.csproj", "{0C2AB9F2-C2DA-4D80-A5CE-3D870B5F7805}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{419ACFF1-3AB6-41B6-8242-CB6B5A4D6E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{419ACFF1-3AB6-41B6-8242-CB6B5A4D6E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{419ACFF1-3AB6-41B6-8242-CB6B5A4D6E2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C2AB9F2-C2DA-4D80-A5CE-3D870B5F7805}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C2AB9F2-C2DA-4D80-A5CE-3D870B5F7805}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C2AB9F2-C2DA-4D80-A5CE-3D870B5F7805}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C2AB9F2-C2DA-4D80-A5CE-3D870B5F7805}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

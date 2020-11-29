@@ -1,7 +1,7 @@
 ﻿@model ServicioNegocio.EF.Unidad
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
 }
 
 <html>
@@ -17,7 +17,7 @@
 
 <body>
     <div class="container" id="registration-form">
-        <div class=""><h1>Editar Unidad</h1></div>
+        <div class=""><h1>Editando Unidad @ViewBag.nombreUni</h1></div>
         <div class="image"></div>
         <div class="frm">
             <form action="/unidad/GuardarEdicion" method="post">

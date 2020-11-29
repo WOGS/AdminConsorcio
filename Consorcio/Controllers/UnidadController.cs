@@ -7,46 +7,67 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
+using MvcSiteMapProvider;
+using MvcSiteMapProvider.Web.Mvc.Filters;
 
 namespace Consorcio.Controllers
 {
     public class UnidadController : Controller
     {
         UnidadService unidadService;
-        
+        ConsorcioService consorcioService;
+
         public UnidadController()
         {
             unidadService = new UnidadService();
-
+            consorcioService = new ConsorcioService();
         }
+
         // GET: Unidad
+        [SiteMapTitle("title")]
         public ActionResult Listar(string id)
         {
-            string consorcioEditado = "";
+            ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
 
-            if (id!=null)
+            if (id != null)
             {
-                Session["idConsorcio"] = id;
-                consorcioEditado = id;
-            } else
+                if (Session["idConsorcio"] != null)
+                {
+                    id = (string)Session["idConsorcio"];
+                }
+                else
+                {
+                    Session["idConsorcio"] = id;
+                }
+            }
+            else 
             {
-                consorcioEditado = (String)Session["idConsorcio"];
+                id = (string)Session["idConsorcio"];
             }
            
-            int idConsorcio = int.Parse(consorcioEditado);
+            int idConsorcio = int.Parse(id);
 
             List<Unidad> unidades = unidadService.Listar(idConsorcio);
+
+            consorcio = consorcioService.Buscar(idConsorcio);
+
+            Session["nombreConsorcio"] = consorcio.Nombre;
+
+            SetConsorcioBreadcrumbTitle(consorcio.Nombre, null);
 
             return View(unidades);
         }
 
+        [SiteMapTitle("title")]
         public ActionResult ViewCrear()
         {
+            string accion = "Crear Unidad";
+            string nombreCon = (string)Session["nombreConsorcio"];
+            SetConsorcioBreadcrumbTitle(nombreCon, null);
+            SetUnidadBreadcrumbTitle(null, accion);
 
             return View();
         }
-
-
 
         [HttpPost]
         public ActionResult Guardar(ServicioNegocio.EF.Unidad unidad, string accion)
@@ -57,7 +78,6 @@ namespace Consorcio.Controllers
             string vista = "Listar";
 
             switch (accion)
-
             {
                 case "Guardar":
                     unidad.IdUsuarioCreador = int.Parse(id);
@@ -71,7 +91,6 @@ namespace Consorcio.Controllers
                     unidadService.Guardar(unidad);                       
 
                     return RedirectToAction("ViewCrear");
-
             }
 
             return RedirectToAction(vista);
@@ -79,19 +98,24 @@ namespace Consorcio.Controllers
 
         public ActionResult ViewEliminar(int idUnidad)
         {
-            // int idUnidad = int.Parse((String)TempData["idUnidad"]);
-
             unidadService.Eliminar(idUnidad);
 
             return RedirectToAction("Listar");
         }
 
+        [SiteMapTitle("title")]
         public ActionResult ViewEditar(string id)
         {
             ServicioNegocio.EF.Unidad unidad = new ServicioNegocio.EF.Unidad();
             int idUnidad = int.Parse((String)id);
 
             unidad = unidadService.Buscar(idUnidad);
+
+            ViewBag.nombreUni = unidad.Nombre;
+            string accion = "Editando Unidad";
+            string nombreCon = (string)Session["nombreConsorcio"];
+            SetConsorcioBreadcrumbTitle(nombreCon, null);
+            SetUnidadBreadcrumbTitle(unidad.Nombre, accion);
 
             return View(unidad);
         }
@@ -101,10 +125,52 @@ namespace Consorcio.Controllers
         {
             Unidad unidadEditada = unidadService.Buscar(unidad.IdUnidad);
             unidadService.Editar(unidad);
-            //string idConsorcioDeUnidadEditada = unidadEditada.IdConsorcio.ToString();
 
             return RedirectToAction(actionName: "Listar/" + unidadEditada.IdConsorcio.ToString());
         }
 
+        private static void SetConsorcioBreadcrumbTitle(string nombre, string accion)
+        {
+            string nombreConsorcio = nombre;
+            var node = SiteMaps.Current.CurrentNode;
+            if (accion != null)
+            {
+                FindParentNode(node, "ConsorcioX", $"Consorcio \"{nombreConsorcio}\" > {accion} ");
+            }
+            else 
+            {
+                FindParentNode(node, "ConsorcioX", $"Consorcio \"{nombreConsorcio}\" ");
+            }
+        }
+
+        private static void SetUnidadBreadcrumbTitle(string nombre, string accion)
+        {
+            string nombreUnidad = nombre;
+            var node = SiteMaps.Current.CurrentNode;
+            if (accion != null)
+            {
+                FindParentNode(node, "UnidadX", $"Unidad \"{nombreUnidad}\" > {accion} ");
+            }
+            else 
+            {
+                FindParentNode(node, "UnidadX", $"Unidad \"{nombreUnidad}\" ");
+            }
+
+        }
+
+        private static void FindParentNode(ISiteMapNode node, string oldTitle, string newTitle)
+        {
+            if (node.Title == oldTitle)
+            {
+                node.Title = newTitle;
+            }
+            else
+            {
+                if (node.ParentNode != null)
+                {
+                    FindParentNode(node.ParentNode, oldTitle, newTitle);
+                }
+            }
+        }
     }
 }

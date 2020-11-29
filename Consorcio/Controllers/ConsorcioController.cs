@@ -25,6 +25,8 @@ namespace Consorcio.Controllers
         // GET: Consorcio
         public ActionResult Listar()
         {
+            Session["idConsorcio"] = null;
+
             int id = (int)Session["idUser"];
             Session["listaProvincias"] = "";
             List<ServicioNegocio.EF.Consorcio> consorcios = consorcioService.Listar(id);
@@ -34,14 +36,16 @@ namespace Consorcio.Controllers
                 List<Provincia> provincias = provinciaService.Listar();
                 Session["listaProvincias"] = provincias;
             }
-            
+
             return View(consorcios);
         }
 
+        [SiteMapTitle("title")]
         public ActionResult ViewCrear()
         {
-            //List<Provincia> provincias = provinciaService.Listar();
             ViewBag.provincias = Session["listaProvincias"];
+
+            SetConsorcioBreadcrumbTitle("Nuevo Consoricio", null);
             return View();
         }
 
@@ -70,7 +74,8 @@ namespace Consorcio.Controllers
             return RedirectToAction(vista);
         }
 
-        public ActionResult ViewEliminarConsorcio(string id) {
+        public ActionResult ViewEliminarConsorcio(string id)
+        {
 
             TempData["idConsorcio"] = id;
 
@@ -78,24 +83,31 @@ namespace Consorcio.Controllers
         }
         public ActionResult Eliminar(string id)
         {
-            int idConsorcio = int.Parse((String) id);
+            int idConsorcio = int.Parse((String)id);
 
             consorcioService.Eliminar(idConsorcio);
 
             return RedirectToAction("Listar");
         }
 
-        //[SiteMapTitle("title")]
+        [SiteMapTitle("title")]
         public ActionResult ViewEditar(string id)
         {
-            ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
-            int idConsorcio = int.Parse((String) id);
+            if (Session["idConsorcio"]!=null)
+            {
+                id = (string)Session["idConsorcio"];
+            }
 
-            consorcio= consorcioService.Buscar(idConsorcio);
+            ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
+            int idConsorcio = int.Parse((String)id);
+
+            consorcio = consorcioService.Buscar(idConsorcio);
 
             ViewBag.provincias = Session["listaProvincias"];
 
-            //ViewData["Title"] = "Consorcio \"Villanova\"";
+            ViewBag.nombreCon = consorcio.Nombre;
+            string accion = "Editando Consorcio";
+            SetConsorcioBreadcrumbTitle(consorcio.Nombre, accion);
 
             return View(consorcio);
         }
@@ -111,19 +123,13 @@ namespace Consorcio.Controllers
             return RedirectToAction("Listar");
         }
 
-        //Para el breadCrumb
-        private static void SetConsorcioBreadcrumbTitle(string id)
+        private static void SetConsorcioBreadcrumbTitle(string nombre, string accion)
         {
-            ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
-            int idConsorcio = int.Parse((String)id);
-
-            ConsorcioService consorcioService1 = new ConsorcioService();
-            consorcio = consorcioService1.Buscar(idConsorcio);
-
-            string nombreConsorcio = consorcio.Nombre;
-
+            
+            string nombreConsorcio = nombre;
             var node = SiteMaps.Current.CurrentNode;
-            FindParentNode(node, "ConsorcioX", $"Consorcio \"{nombreConsorcio}\"");
+
+            FindParentNode(node, "ConsorcioX", $"Consorcio \"{nombreConsorcio}\" > {accion} "); 
         }
 
         private static void FindParentNode(ISiteMapNode node, string oldTitle, string newTitle)

@@ -1,20 +1,8 @@
-﻿@*@model ServicioNegocio.EF.Provincia*@
-@model Consorcio.Models.ConsorcioModel
-
+﻿@model Consorcio.Models.ConsorcioModel
 
 
 
 @{ Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
-
-    //List<ServicioNegocio.EF.Provincia> provincias = ViewBag.provincias as List<ServicioNegocio.EF.Provincia>;
-
-    //List<SelectListItem> provinciaItems = provincias.Select(o => new SelectListItem()
-    //{
-    //    Text = o.Nombre,
-    //    Value = o.IdProvincia.ToString()
-    //}).ToList();
-
-    //provinciaItems.Insert(0, new SelectListItem() { Value = "", Text = "Seleccione Provincia" });
 
     List<ServicioNegocio.EF.Provincia> provincias = ViewBag.provincias as List<ServicioNegocio.EF.Provincia>;
 
@@ -23,24 +11,16 @@
         Text = o.Nombre,
         Value = o.IdProvincia.ToString()
     }).ToList();
-
     provinciaItems.Insert(0, new SelectListItem() { Value = "", Text = "Seleccione Provincia" });
-
 }
-
-
-
 
 <section class="d-flex align-items-center" id="registration-form">
     <div class="container ">
         <div class="row ">
             <div class="col text-center box-form">
-                <h2>Nuevo Consorcio</h2>
-                <br>
-
+                <h2>Nuevo Consorcio</h2><br>
                 <div class="image"></div>
                 <div class="frm">
-
                     <form action="Guardar" method="post">
                         <div class="form-group text-left">
                             <label for="Nombre">Nombre:</label>
@@ -50,7 +30,7 @@
                             <label for="pwd">Provincia:</label>
                             @Html.DropDownListFor(Model => Model.idProvincia, provinciaItems)
                             <input type="hidden" name="IdProvincia" value="@Html.DisplayFor(model => model.idProvincia)">
-                           
+
                         </div>
                         <div class="form-group text-left">
                             <label for="username">Ciudad:</label>

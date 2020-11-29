@@ -259,7 +259,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ConsorcioModel.cs" />
-    <Compile Include="Models\ExpensaModel.cs" />
     <Compile Include="Models\UnidadModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

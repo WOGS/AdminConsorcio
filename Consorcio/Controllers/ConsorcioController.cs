@@ -1,6 +1,7 @@
 ﻿using Consorcio.Models;
 using Newtonsoft.Json;
 using ServicioNegocio.EF;
+using ServicioNegocio.Models;
 using ServicioNegocio.Service;
 using System;
 using System.Collections.Generic;
@@ -140,7 +141,7 @@ namespace Consorcio.Controllers
             request.ContentType = "application/json";
             request.Accept = "application/json";
 
-            List<Expensa> result = new List<Expensa>();
+            ExpensaModel result = new ExpensaModel();
 
             using (WebResponse response = request.GetResponse())
             {
@@ -149,10 +150,8 @@ namespace Consorcio.Controllers
                     using (StreamReader objReader = new StreamReader(strReader))
                     {
                         string responseBody = objReader.ReadToEnd();
-                        result = JsonConvert.DeserializeObject<List<Expensa>>(responseBody);
-                       // string resultado = JsonConvert.DeserializeObject<string>(responseBody);
-                        //TempData["cantGolesEquipo"] = resultado;
-                        //TempData["equipoSel"] = id;
+                        //result = JsonConvert.DeserializeObject<List<Expensa>>(responseBody);
+                        result = JsonConvert.DeserializeObject<ExpensaModel>(responseBody);
                     }
                 }
             }

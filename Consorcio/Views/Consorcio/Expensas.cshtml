@@ -1,49 +1,57 @@
-﻿@model IEnumerable<ServicioNegocio.EF.Expensa>
+﻿@model ServicioNegocio.Models.ExpensaModel
 
 @{
     ViewBag.Title = "Expensas";
     Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
-    int pagina = 1;
+
+    List<ServicioNegocio.EF.Expensa> expensas = Model.expensas;
 }
 
-<section class="d-flex align-items-center">
-    <div class="container text-center position-relative cw" data-aos="fade-in" data-aos-delay="200">
-        <h1>Administración de Consorcios</h1>
-
-    </div>
-</section>
 
 <section id="listado" class="ta-c">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 mx-auto">
-                <h2>Listado de Expensas</h2>
-
-                <br>
-
+                <h2>Expensas</h2><br>
                 <div class="box-form">
+                    <h5>Unidades: @Model.cantidadUnidades</h5>
+                    <h5>Gastos totales del mes: @Model.gastosActuales</h5>
+                    <h5>Monto por Unidad: @Model.montoPorUnidad</h5>
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">Año</th>
                                 <th scope="col">Mes</th>
-                                <th scope="col">Gastos Totales</th>
-                                <th scope="col">Expensas por Unidad</th>
+                                <th scope="col">Gastos</th>
+                                <th scope="col">Expensa por unidad</th>
+
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in expensas)
                             {
                                 <tr>
                                     <td>@Html.DisplayFor(modelItem => item.AnioExpensa)</td>
                                     <td>@Html.DisplayFor(modelItem => item.MesExpensa)</td>
                                     <td>@Html.DisplayFor(modelItem => item.GastoTotal)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.ExpensaUnidad)</td>
+                                    <td> @Html.DisplayFor(modelItem => item.ExpensaUnidad)</td>
                                 </tr>
                             }
                         </tbody>
                     </table>
-                    <br>
+                    @*<nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>*@
                 </div>
             </div>
         </div>

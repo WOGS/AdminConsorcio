@@ -204,11 +204,19 @@ a:hover {
     height: 400px;
 }
 
-.col-md-3 {
+.fondo {
+    background-image: url('../Img/edificios.jpg');
+    border-radius: 10px;
+    height: 520px;
+    width: 55%;
+    background-size: cover;
+    background-position: 35%;
+    margin-bottom: 200px;
+/*
     background: #ff9b00;
     padding: 4%;
     border-top-left-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;*/
 }
 
 .contact-info {

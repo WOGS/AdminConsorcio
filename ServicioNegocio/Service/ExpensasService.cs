@@ -1,4 +1,5 @@
 ﻿using ServicioNegocio.EF;
+using ServicioNegocio.Models;
 using ServicioNegocio.Repository;
 using System;
 using System.Collections.Generic;
@@ -17,20 +18,13 @@ namespace ServicioNegocio.Service
             expensasRepository = new ExpensasRepository();
         }
 
-        public List<Expensa> calcularExpensas(int id)
+        public ExpensaModel calcularExpensas(int id)
         {
-            List<Expensa> expensas = new List<Expensa>();
+            ExpensaModel expensamodel = new ExpensaModel();
 
-            expensas = expensasRepository.calcularExpensas(id);
+            expensamodel = expensasRepository.calcularExpensas(id);
 
-            return expensas;
-        }
-
-        public int gastoTotalMes(int id)
-        {
-            int gastoTotalMes = expensasRepository.gastoTotalMes(id);
-
-            return gastoTotalMes;
+            return expensamodel;
         }
     }
 }

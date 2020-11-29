@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using ServicioNegocio.Models;
 
 namespace ApiExpensas.Controllers
 {
@@ -20,17 +21,15 @@ namespace ApiExpensas.Controllers
             consorcioService = new ConsorcioService();
         }
         [HttpGet]
-        public List<Expensa> CalcularExpensa(int id)
+        public ExpensaModel CalcularExpensa(int id)
         {
-            List<Expensa> expensas = new List<Expensa>();
-
-            expensas = expensasService.calcularExpensas(id);
-
-            int gasto = expensasService.gastoTotalMes(id);
-
+            ExpensaModel expensaModel = new ExpensaModel();
+           
+            expensaModel = expensasService.calcularExpensas(id);
             int cantidadUnidades = consorcioService.ContarUnidades(id);
-
-            return expensas;
+            expensaModel.cantidadUnidades = cantidadUnidades;
+            
+            return expensaModel;
         }
     }
 }

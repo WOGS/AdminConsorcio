@@ -24,6 +24,13 @@ namespace ServicioNegocio.Service
             return unidades;
         }
 
+        public List<Unidad> PaginarUnidades(int posicion, ref int totalregistros, int idConsorcio)
+        {
+            List<Unidad> unidades = unidadRepository.PaginarUnidades(posicion, ref totalregistros, idConsorcio);
+
+            return unidades;
+        }
+
         public void Guardar(Unidad unidad)
         {
             unidadRepository.Guardar(unidad);

@@ -20,23 +20,29 @@ namespace Consorcio.Controllers
 
         }
         // GET: Unidad
-        public ActionResult Listar(string id)
+        public ActionResult Listar(string id, int? posicion)
         {
+            if (posicion == null)
+            {
+                posicion = 0;
+            }
             string consorcioEditado = "";
 
-            if (id!=null)
+            if (id != null)
             {
                 Session["idConsorcio"] = id;
                 consorcioEditado = id;
-            } else
+            }
+            else
             {
                 consorcioEditado = (String)Session["idConsorcio"];
             }
-           
+
+            int totalregistros = 0;
             int idConsorcio = int.Parse(consorcioEditado);
 
-            List<Unidad> unidades = unidadService.Listar(idConsorcio);
-
+            List<Unidad> unidades = unidadService.PaginarUnidades(posicion.GetValueOrDefault(), ref totalregistros, idConsorcio);
+            ViewBag.TotalRegistros = totalregistros;
             return View(unidades);
         }
 

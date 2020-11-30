@@ -105,6 +105,10 @@ table a {
 }
 
 
+#bredCrumb {
+    width: 100%;
+    height:60px;
+}
 
 
 #registration-form {

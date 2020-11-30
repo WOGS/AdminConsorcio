@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0 MvcSiteMapSchema.xsd"
+            enableLocalization="true">
+	<!--<mvcSiteMapNode title="Inicio" controller="Home" action="Inicio">-->
+		<mvcSiteMapNode title="Mis Consorcios" controller="Consorcio" action="Listar">
+			<mvcSiteMapNode title="ConsorcioX" controller="Consorcio" action="ViewEditar" preservedRouteParameters="id">
+				
+				<mvcSiteMapNode title="Unidades" controller="Unidad" action="Listar" preservedRouteParameters="id">
+					<mvcSiteMapNode title="UnidadX" controller="Unidad" action="ViewEditar" preservedRouteParameters="id"/>
+					<mvcSiteMapNode title="Nueva Unidad" controller="Unidad" action="ViewCrear" preservedRouteParameters="id"/>
+				</mvcSiteMapNode>
+			</mvcSiteMapNode>
+			<mvcSiteMapNode title="Nuevo Consorcio" controller="Consorcio" action="ViewCrear" preservedRouteParameters="id"/>
+		</mvcSiteMapNode>
+	<!--</mvcSiteMapNode>-->
+
+</mvcSiteMap>

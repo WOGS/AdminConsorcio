@@ -10,6 +10,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MvcSiteMapProvider;
+using MvcSiteMapProvider.Web.Mvc.Filters;
 
 namespace Consorcio.Controllers
 {
@@ -29,8 +31,11 @@ namespace Consorcio.Controllers
         {
             if (posicion == null)
             {
+            Session["idConsorcio"] = null;
                 posicion = 0;
             }
+            
+
 
             int id = (int)Session["idUser"];
             Session["listaProvincias"] = "";
@@ -47,11 +52,12 @@ namespace Consorcio.Controllers
             return View(consorcios);
         }
 
+        [SiteMapTitle("title")]
         public ActionResult ViewCrear()
         {
-            //List<Provincia> provincias = provinciaService.Listar();
             ViewBag.provincias = Session["listaProvincias"];
 
+            SetConsorcioBreadcrumbTitle("Nuevo Consoricio", null);
             ConsorcioModel consorcioModel = new ConsorcioModel();
 
             consorcioModel.provincias = (List<Provincia>)Session["listaProvincias"];
@@ -91,7 +97,8 @@ namespace Consorcio.Controllers
             return RedirectToAction(vista);
         }
 
-        public ActionResult ViewEliminarConsorcio(string id) {
+        public ActionResult ViewEliminarConsorcio(string id)
+        {
 
             TempData["idConsorcio"] = id;
 
@@ -99,25 +106,35 @@ namespace Consorcio.Controllers
         }
         public ActionResult Eliminar(string id)
         {
-            int idConsorcio = int.Parse((String) id);
+            int idConsorcio = int.Parse((String)id);
 
             consorcioService.Eliminar(idConsorcio);
 
             return RedirectToAction("Listar");
         }
 
+        [SiteMapTitle("title")]
         public ActionResult ViewEditar(string id)
         {
-            ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
-            int idConsorcio = int.Parse((String) id);
+            if (Session["idConsorcio"]!=null)
+            {
+                id = (string)Session["idConsorcio"];
+            }
 
-            consorcio= consorcioService.Buscar(idConsorcio);
+            ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
+            int idConsorcio = int.Parse((String)id);
+
+            consorcio = consorcioService.Buscar(idConsorcio);
 
             int contarUnidades = consorcioService.ContarUnidades(idConsorcio);
 
             ViewBag.contarUnidades = contarUnidades;
 
             ViewBag.provincias = Session["listaProvincias"];
+
+            ViewBag.nombreCon = consorcio.Nombre;
+            string accion = "Editando Consorcio";
+            SetConsorcioBreadcrumbTitle(consorcio.Nombre, accion);
 
             return View(consorcio);
         }
@@ -157,5 +174,30 @@ namespace Consorcio.Controllers
             }
             return View(result);
         }
+
+        private static void SetConsorcioBreadcrumbTitle(string nombre, string accion)
+        {
+            
+            string nombreConsorcio = nombre;
+            var node = SiteMaps.Current.CurrentNode;
+
+            FindParentNode(node, "ConsorcioX", $"Consorcio \"{nombreConsorcio}\" > {accion} "); 
+        }
+
+        private static void FindParentNode(ISiteMapNode node, string oldTitle, string newTitle)
+        {
+            if (node.Title == oldTitle)
+            {
+                node.Title = newTitle;
+            }
+            else
+            {
+                if (node.ParentNode != null)
+                {
+                    FindParentNode(node.ParentNode, oldTitle, newTitle);
+                }
+            }
+        }
+
     }
 }

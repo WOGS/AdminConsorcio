@@ -60,5 +60,12 @@ namespace ServicioNegocio.Service
 
             return cantidad;
         }
+
+        public string getNombreById(int idConsorcio)
+        {
+            string nombreConsorcio = consorcioRepository.getNombreById(idConsorcio);
+
+            return nombreConsorcio;
+        }
     }
 }

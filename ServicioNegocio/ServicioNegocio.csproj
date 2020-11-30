@@ -113,14 +113,18 @@
     </Compile>
     <Compile Include="Models\ExpensaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\GastoRepository.cs" />
     <Compile Include="Repository\ExpensasRepository.cs" />
+    <Compile Include="Repository\TipoGastoRepository.cs" />
     <Compile Include="Repository\UnidadRepository.cs" />
     <Compile Include="Repository\ConsorcioRepository.cs" />
     <Compile Include="Repository\ProvinciaRepository.cs" />
     <Compile Include="Repository\UsuarioRepository.cs" />
     <Compile Include="Service\ConsorcioService.cs" />
+    <Compile Include="Service\GastoService.cs" />
     <Compile Include="Service\ExpensasService.cs" />
     <Compile Include="Service\ProvinciaService.cs" />
+    <Compile Include="Service\TipoGastoService.cs" />
     <Compile Include="Service\UnidadService.cs" />
     <Compile Include="Service\UsuarioService.cs" />
   </ItemGroup>

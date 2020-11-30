@@ -265,6 +265,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ConsorcioController.cs" />
+    <Compile Include="Controllers\GastoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UnidadController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -319,6 +320,9 @@
     <Content Include="Views\Unidad\ViewEditar.cshtml" />
     <Content Include="Views\Unidad\ViewCrear.cshtml" />
     <Content Include="Views\Unidad\ViewEliminar.cshtml" />
+    <Content Include="Views\Gasto\Listar.cshtml" />
+    <Content Include="Views\Gasto\ViewCrear.cshtml" />
+    <Content Include="Views\Gasto\ViewEditar.cshtml" />
     <Content Include="Views\Consorcio\Expensas.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapPathHelperModel.cshtml" />

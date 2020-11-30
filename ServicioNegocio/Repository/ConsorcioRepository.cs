@@ -84,5 +84,12 @@ namespace ServicioNegocio.Repository
             
             return cantidad;
         }
+
+        public string getNombreById(int idConsorcio)
+        {
+            var nombreConsorcio = (from con in contexto.Consorcio where con.IdConsorcio == idConsorcio select con.Nombre);
+                
+            return nombreConsorcio.FirstOrDefault();
+        }
     }
 }

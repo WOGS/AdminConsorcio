@@ -198,6 +198,18 @@ a:hover {
     margin-bottom: 8px;
 }
 
+.ver-comprobante {
+    font-size: 12px !important;
+    color: #007bff!important;
+    text-decoration: underline;
+    cursor:pointer;
+}
+
+ .error {
+    color: crimson !important;
+    margin-right: 20px;
+    font-size: 12px;
+}
 
 
 

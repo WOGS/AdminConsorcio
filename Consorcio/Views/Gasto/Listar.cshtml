@@ -44,13 +44,13 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@Html.DisplayFor(modelItem => item.AnioExpensa)</td>
+                                    <td><a href="../ViewEditar/@item.IdGasto">@Html.DisplayFor(modelItem => item.AnioExpensa)</a></td>
                                     <td>@Html.DisplayFor(modelItem => item.MesExpensa)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                                     <td>@Html.DisplayFor(modelItem => item.TipoGasto.Nombre)</td>
                                     <td>@Html.DisplayFor(modelItem => item.FechaGasto)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Monto)</td>
-                                    <td><a href="@Html.DisplayFor(modelItem => item.ArchivoComprobante)"><i class="fas fa-file-download"></i></a></td>
+                                    <td><a href="../VerComprobanteDesdeListar/@item.IdGasto" target="_blank"><i class="fas fa-file-download"></i></a></td>
                                     <th scope="row"> <a><i class="fas fa-times-circle"></i></a></th>
 
                                 </tr>
@@ -73,7 +73,7 @@
                     <br>
                     <div class="row">
                         <div class="col-3 offset-9">
-                            <a class="btn btn-primary" href="/Gasto/ViewCrear">Nueva Unidad </a>
+                            <a class="btn btn-primary" href="/Gasto/ViewCrear">Nuevo Gasto </a>
                         </div>
                     </div>
                 </div>

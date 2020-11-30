@@ -1,7 +1,6 @@
 ﻿@model ServicioNegocio.EF.Gasto
-
 @{
-    ViewBag.Title = "Nuevo Gasto";
+    ViewBag.Title = "ViewEditar";
     Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
 
     List<ServicioNegocio.EF.TipoGasto> tiposgastos = ViewBag.tiposgastos as List<ServicioNegocio.EF.TipoGasto>;
@@ -17,68 +16,70 @@
         Value = "",
         Text = "Seleccione Tipo de Gasto"
     });
-
-    string nombreConsorcio = ViewBag.nombreConsorcio ;
 }
+
 <section id="consorcios" class="ta-c">
     <div class="container">
         <div class="row">
             <div class="col-lg-10 mx-auto">
-                <h2>Consorcio 'Edificio Godoy Cruz' - Cargo Nuevo Gasto</h2>
+                <h2>Consorcio 'Edificio Godoy Cruz' - Editando Gasto (nombre de gasto)</h2>
                 <br>
-                <form class="box-form" action="Guardar" method="post">
+                <form class="box-form" action="/gasto/GuardarEdicion" method="post">
                     @Html.AntiForgeryToken()
+                    <input type="hidden" name="IdGasto" value="@Model.IdGasto" />
+                    @*<input type="hidden" name="TipoGasto" value="@Model.TipoGasto" />
+        <input type="hidden" name="FechaCreacion" value="@Model.FechaCreacion" />*@
                     <div class="form-group row">
-                        <label for="consorcio" class="col-sm-2 col-form-label">Consorcio</label>
+                        <label for="Consorcio" class="col-sm-2 col-form-label">Consorcio</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="consorcio" name="consorcio" value="@(ViewBag.nombreConsorcio ?? String.Empty)"
+                            <input type="text" class="form-control" id="Consorcio" name="Consorcio" value="@(ViewBag.nombreConsorcio ?? String.Empty)"
                                    disabled>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="tipoGasto" class="col-sm-2 col-form-label">Tipo Gasto</label>
+                        <label for="idTipoGasto" class="col-sm-2 col-form-label">Tipo Gasto</label>
                         <div class="col-sm-4">
                             @Html.DropDownListFor(Model => Model.IdTipoGasto, tgastosItems, new { @class = "form-control" })
-                            <input type="hidden" name="tipoGasto" value="@Html.DisplayFor(model => model.IdTipoGasto)">
+                            <input type="hidden" name="idTipoGasto" value="@Html.DisplayFor(model => model.IdTipoGasto)">
                             <div class="error" role="alert">
                                 @Html.ValidationMessageFor(Model => Model.IdTipoGasto)
                             </div>
-                        </div>                        
+                        </div>
                         <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Ingrese Nombre">
+                            <input type="text" class="form-control" id="Nombre" name="Nombre"
+                                   value="@Html.DisplayFor(model => model.Nombre)" placeholder="Ingrese Nombre">
                             <div class="error" role="alert">
-                                @Html.ValidationMessageFor(Model => Model.Nombre, null, new {@class = "error" })
+                                @Html.ValidationMessageFor(Model => Model.Nombre, null, new { @class = "error" })
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label for="Descripcion" class="col-sm-2 col-form-label">Descripción</label>
                         <div class="col-sm-4">
                             <textarea type="text" class="form-control" id="Descripcion" name="Descripcion"
-                                      placeholder="Ingrese Descripcion (Opcional)"></textarea>
+                                      placeholder="Ingrese Descripcion (Opcional)">@Html.DisplayFor(model => model.Descripcion)</textarea>
                         </div>
                         <label for="FechaGasto" class="col-sm-2 col-form-label">Fecha</label>
                         <div class="col-sm-4">
-                            <input type="date" class="form-control" id="FechaGasto" name="FechaGasto">
+                            @Html.TextBoxFor(model => model.FechaGasto, new { @type = "date", @Value = Model.FechaGasto.ToString("yyyy-MM-dd"), @class = "form-control" })
                             <div class="error" role="alert">
                                 @Html.ValidationMessageFor(Model => Model.FechaGasto)
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="form-group row">
-                        <label for="Expensa" class="col-sm-2 col-form-label">Expensa</label>
+                        <label for="expensa" class="col-sm-2 col-form-label">Expensa</label>
                         <div class="input-group col-sm-10">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Año</div>
                             </div>
-                            <input type="number" class="form-control" id="AnioExpensa" name="AnioExpensa">
-
+                            <input type="number" class="form-control" id="AnioExpensa" name="AnioExpensa" value="@Html.DisplayFor(model => model.AnioExpensa)">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Mes</div>
                             </div>
-                            <input type="number" class="form-control" id="mesExpensa" name="mesExpensa">                            
-                        </div>                       
+                            <input type="number" class="form-control" id="MesExpensa" name="MesExpensa" value="@Html.DisplayFor(model => model.MesExpensa)">
+                        </div>
                     </div>
                     <div class="form-group row">
                         <div class="offset-2 error" role="alert">
@@ -89,31 +90,32 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="ArchivoComprobante" class="col-sm-2 col-form-label">Comprobante</label>
-                        <div class="col-sm-10">
+                        <label for="ArchivoComprobante" class="col-sm-2 col-form-label">Cambiar Comprobante</label>
+                        <div class="col-sm-6">
                             <input type="file" class="form-control-file" id="exampleFormControlFile1" name="ArchivoComprobante">
                             <div class="error" role="alert">
                                 @Html.ValidationMessageFor(Model => Model.ArchivoComprobante)
                             </div>
-                        </div>                        
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="ver-comprobante" type="submit" name="accion" value="VerComprobante" formtarget="_blank">Ver Comprobante</button>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label for="Monto" class="col-sm-2 col-form-label">Monto</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="Monto" name="Monto" placeholder="Ingrese Monto">
+                            <input type="text" class="form-control" id="Monto" name="Monto"
+                                   value="@Html.DisplayFor(model => model.Monto)" placeholder="Ingrese Monto">
                             <div class="error" role="alert">
                                 @Html.ValidationMessageFor(Model => Model.Monto)
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                     <br>
                     <br>
                     <div class="row">
                         <div class="col-4">
                             <button type="submit" name="accion" value="Guardar" class="btn btn-primary">Guardar</button>
-                        </div>
-                        <div class="col-4">
-                            <button class="btn btn-warning cw" name="accion" value="GuardarCrear">Guardar y Crear Otro Gasto</button>
                         </div>
                         <div class="col-4">
                             <a class="btn btn-secondary" href="index.html">Cancelar</a>
@@ -124,5 +126,4 @@
         </div>
     </div>
 </section>
-
 

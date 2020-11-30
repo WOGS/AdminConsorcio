@@ -24,6 +24,23 @@ namespace ServicioNegocio.Service
             return gastos;
         }
 
+        public void Guardar(Gasto gasto)
+        {
+            gastoRepository.Guardar(gasto);
+        }
+
+        public Gasto Buscar(int idGasto)
+        {
+            Gasto gasto = new Gasto();
+            gasto = gastoRepository.Buscar(idGasto);
+            return gasto;
+        }
+
+        public void Editar(Gasto gasto)
+        {
+            gastoRepository.Editar(gasto);
+        }
+
 
     }
 }

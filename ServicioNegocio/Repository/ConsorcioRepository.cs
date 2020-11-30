@@ -72,5 +72,12 @@ namespace ServicioNegocio.Repository
             List<Consorcio> consorcios = consulta;
             return consorcios;
         }
+
+        public string getNombreById(int idConsorcio)
+        {
+            var nombreConsorcio = (from con in contexto.Consorcio where con.IdConsorcio == idConsorcio select con.Nombre);
+                
+            return nombreConsorcio.FirstOrDefault();
+        }
     }
 }

@@ -306,6 +306,7 @@
     <Content Include="Views\Unidad\ViewEliminar.cshtml" />
     <Content Include="Views\Gasto\Listar.cshtml" />
     <Content Include="Views\Gasto\ViewCrear.cshtml" />
+    <Content Include="Views\Gasto\ViewEditar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

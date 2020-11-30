@@ -58,7 +58,14 @@ namespace ServicioNegocio.Repository
             contexto.SaveChanges();
         }
 
-
+        public List<Gasto> PaginarGastos(int posicion, ref int totalRegistros, int idConsorcio)
+        {
+            totalRegistros = this.contexto.Gasto.Count();
+            var consulta = (from con in contexto.Gasto where con.IdConsorcio == idConsorcio select con).
+                OrderBy(x => x.IdGasto).Skip(posicion).Take(4).ToList();
+            List<Gasto> gastos = consulta;
+            return gastos;
+        }
 
     }
 }

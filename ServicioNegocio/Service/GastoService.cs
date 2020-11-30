@@ -41,6 +41,10 @@ namespace ServicioNegocio.Service
             gastoRepository.Editar(gasto);
         }
 
-
+        public List<Gasto> PaginarGastos(int posicion, ref int totalRegistros, int idConsorcio)
+        {
+            List<Gasto> gastos = gastoRepository.PaginarGastos(posicion, ref totalRegistros, idConsorcio);
+            return gastos;
+        }
     }
 }

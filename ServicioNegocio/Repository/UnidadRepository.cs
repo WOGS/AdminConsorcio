@@ -79,7 +79,8 @@ namespace ServicioNegocio.Repository
         public List<Unidad> PaginarUnidades(int posicion, ref int totalregistros, int idConsorcio)
         {
             totalregistros = this.contexto.Unidad.Count();
-            var consulta = (from con in contexto.Unidad where con.IdConsorcio == idConsorcio select con).OrderBy(z => z.IdUnidad).Skip(posicion).Take(4).ToList();
+            var consulta = (from con in contexto.Unidad where con.IdConsorcio == idConsorcio select con)
+                .OrderBy(z => z.IdUnidad).Skip(posicion).Take(4).ToList();
             List<Unidad> unidades = consulta;
             return unidades;
         }

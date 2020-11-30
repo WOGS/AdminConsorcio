@@ -24,7 +24,7 @@ namespace Consorcio.Controllers
         }
 
         //GET: Gasto
-        public ActionResult Listar(string id)
+        public ActionResult Listar(string id, int? posicion)
         {
             string gastoEditado = "";
 
@@ -38,11 +38,19 @@ namespace Consorcio.Controllers
                 gastoEditado = (String)Session["idConsorcio"];
             }
 
-            int idConsorcio = int.Parse(gastoEditado);
-            
+            if (posicion == null)
+            {
+                posicion = 0;
+
+            }
+
+            int idConsorcio = int.Parse(gastoEditado);            
             Session["nombreConsorcio"] = consorcioService.getNombreById(idConsorcio);
-           
-            List<Gasto> gastos = gastoService.Listar(idConsorcio);
+            int totalRegistros = 0;
+            List<Gasto> gastos = gastoService.PaginarGastos(posicion.GetValueOrDefault(), ref totalRegistros, idConsorcio);
+            ViewBag.TotalRegistros = totalRegistros;
+
+            //List<Gasto> gastos = gastoService.Listar(idConsorcio);
 
             return View(gastos);
         }

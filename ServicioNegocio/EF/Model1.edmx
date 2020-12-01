@@ -452,7 +452,7 @@
             <End Role="Expensa" EntitySet="Expensa" />
           </AssociationSet>
           <FunctionImport Name="CalcularExpensa" ReturnType="Collection(PW3_TP_20202CModel.CalcularExpensa_Result)">
-            <Parameter Name="IdConsorcio" Mode="In" Type="Int32" />
+          <Parameter Name="IdConsorcio" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Expensa">

@@ -1,18 +1,19 @@
 ﻿@model ServicioNegocio.EF.Gasto
 @{
-        Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
+        Layout = "~/Views/Shared/_LayoutEliminar.cshtml";
 }
+<section id="listado" class="ta-c">
+    <body>
+        <h1>¿Esta seguro que desea eliminar el Gasto?</h1>
+        <div  class="form-group">
+            <div hidden>@TempData["idGasto"]</div>
+            <button type="submit" class="btn btn-success btn-lg">
+                <a class="underlineHover" type="" href="/Gasto/Eliminar/@TempData["idGasto"]"> Confirmar</a>
+            </button>
 
-<body>
-    <h1>¿Esta seguro que desea eliminar el Gasto?</h1>
-    <div class="form-group">
-        <div>@TempData["idGasto"]</div>
-        <button type="submit" class="btn btn-success btn-lg">
-            <a class="underlineHover" type="" href="/Gasto/Eliminar/@TempData["idGasto"]"> Confirmar</a>
-        </button>
-
-        <button type="button" class="btn btn-success btn-lg">
-            <a class="underlineHover" type="" href="/Gasto/Listar">Cancelar</a>
-        </button>
-    </div>
-</body>
+            <button type="button" class="btn btn-success btn-lg">
+                <a class="underlineHover" type="" href="/Gasto/Listar">Cancelar</a>
+            </button>
+        </div>
+    </body>
+    </section>

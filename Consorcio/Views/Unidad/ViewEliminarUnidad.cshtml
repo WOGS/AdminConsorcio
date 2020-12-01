@@ -1,19 +1,22 @@
 ﻿@model ServicioNegocio.EF.Unidad
 
 @{
-    Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
+    Layout = "~/Views/Shared/_LayoutEliminar.cshtml";
 }
-<body>
-    <h1>¿Esta seguro que desea eliminar la Unidad?</h1>
-    <div class="form-group">
-        <div>@TempData["idUnidad"]</div>
-        <button type="submit" class="btn btn-success btn-lg">
-            <a class="underlineHover" type="" href="/Unidad/Eliminar/@TempData["idUnidad"]"> Confirmar</a>
-        </button>
 
-        <button type="button" class="btn btn-success btn-lg">
-            <a class="underlineHover" type="" href="/Unidad/Listar">Cancelar</a>
-        </button>
-    </div>
-</body>
+<section id="listado" class="ta-c">
+    <body>
+        <h1>¿Esta seguro que desea eliminar la Unidad?</h1>
+        <div class="form-group">
+            <div hidden>@TempData["idUnidad"]</div>
+            <button type="submit" class="btn btn-success btn-lg">
+                <a class="underlineHover" type="" href="/Unidad/Eliminar/@TempData["idUnidad"]"> Confirmar</a>
+            </button>
 
+            <button type="button" class="btn btn-success btn-lg">
+                <a class="underlineHover" type="" href="/Unidad/Listar">Cancelar</a>
+            </button>
+        </div>
+    </body>
+
+    </section>

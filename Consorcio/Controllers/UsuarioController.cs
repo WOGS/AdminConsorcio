@@ -66,5 +66,11 @@ namespace Consorcio.Controllers
 
             return Redirect(ruta);
         }
+
+        public ActionResult Salir()
+        {
+            Session["idUser"] = null;
+            return Redirect("/Home/Inicio");
+        }
     }
 }

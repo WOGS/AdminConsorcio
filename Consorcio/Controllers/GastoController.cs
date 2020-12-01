@@ -254,7 +254,7 @@ namespace Consorcio.Controllers
         {
             int idGasto = int.Parse((String)id);
 
-            consorcioService.Eliminar(idGasto);
+            gastoService.Eliminar(idGasto);
 
             return RedirectToAction("Listar");
         }

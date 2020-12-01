@@ -12,7 +12,6 @@
         <div class="row">
             <div class="col-lg-12 mx-auto">
                 <h2>Listado de Unidades</h2>
-
                 <br>
                 <div class="box-form">
                     <table class="table table-hover">
@@ -34,9 +33,33 @@
                                     <td>@Html.DisplayFor(modelItem => item.ApellidoPropietario)</td>
                                     <td>@Html.DisplayFor(modelItem => item.NombrePropietario)</td>
                                     <td>@Html.DisplayFor(modelItem => item.EmailPropietario)</td>
-                                    <th scope="row"> <a href="/Unidad/ViewEliminarUnidad/@item.IdUnidad"><i class="fas fa-times-circle"></i></a></th>
-
+                                    <td><a href="#" class="a-delete" type="button" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-times-circle"></i></a></td>
                                 </tr>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h5>¿Esta seguro que desea eliminar la unidad?</h5>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary btn-lg">
+                                                    <a class="underlineHover" type="" href="/Unidad/Eliminar/@item.IdUnidad"> Confirmar</a>
+                                                </button>
+
+                                                <button type="button" class="btn btn-secondary btn-lg">
+                                                    <a class="underlineHover" type="" href="/Unidad/Listar">Cancelar</a>
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             }
                         </tbody>
                     </table>
@@ -50,24 +73,14 @@
                                         <a class="page-link" href="#" tabindex="-1">Previous</a>
                                     </li>
                                 }
-                                @*else
-                            {
-                    <li class="page-item ">
-
-                        <a class="page-link" href='@Html.ActionLink(pagina++.ToString(), "Listar", "Consorcio", new { posicion = i-1, cantidad = 4 }, null)'>Previous</a>
-                    </li>
-                            }*@
                             }
 
                             @for (i = 0; i < ViewBag.TotalRegistros; i += 4)
                             {
-
-                                //@Html.DisplayFor(valor => i)
                                 <li class="page-link">
                                     @Html.ActionLink(pagina++.ToString(), "Listar", "Unidad", new { posicion = i }, null)
                                 </li>
                             }
-
                             @{
                                 if (i == (ViewBag.TotalRegistros - 4))
                                 {

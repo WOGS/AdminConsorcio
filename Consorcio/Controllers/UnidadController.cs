@@ -32,16 +32,13 @@ namespace Consorcio.Controllers
             if (posicion == null)
             {
                 posicion = 0;
-            
             }
 
             if (id != null)
             {
-            
                 if (Session["idConsorcio"] != null)
                 {
                     id = (string)Session["idConsorcio"];
-                   // consorcioEditado = id;
                 }
                 else
                 {

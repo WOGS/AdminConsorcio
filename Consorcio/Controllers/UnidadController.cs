@@ -27,7 +27,8 @@ namespace Consorcio.Controllers
         [SiteMapTitle("title")]
         public ActionResult Listar(string id, int? posicion)
         {
-        ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
+            string consorcioEditado = "";
+            ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
             if (posicion == null)
             {
                 posicion = 0;

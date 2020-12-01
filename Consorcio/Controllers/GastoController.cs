@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ServicioNegocio.Service;
 using ServicioNegocio.EF;
 using System.Text;
+using MvcSiteMapProvider;
+using MvcSiteMapProvider.Web.Mvc.Filters;
 
 namespace Consorcio.Controllers
 {
@@ -24,33 +27,58 @@ namespace Consorcio.Controllers
         }
 
         //GET: Gasto
-        public ActionResult Listar(string id)
+        [SiteMapTitle("title")]
+        public ActionResult Listar(string id, int? posicion)
         {
-            string gastoEditado = "";
+            ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
 
             if (id != null)
             {
-                Session["idConsorcio"] = id;
-                gastoEditado = id;
-            }
-            else
+                if (Session["idConsorcio"] != null)
+                {
+                    id = (string)Session["idConsorcio"];
+                } else
+                {
+                    Session["idConsorcio"] = id;
+                }
+            } else
             {
-                gastoEditado = (String)Session["idConsorcio"];
+                id = (string)Session["idConsorcio"];
+            }
+            
+            
+            if (posicion == null)
+            {
+                posicion = 0;
+
             }
 
-            int idConsorcio = int.Parse(gastoEditado);
-            
-            Session["nombreConsorcio"] = consorcioService.getNombreById(idConsorcio);
-           
-            List<Gasto> gastos = gastoService.Listar(idConsorcio);
+            int idConsorcio = int.Parse(id);            
+            consorcio = consorcioService.Buscar(idConsorcio);
+            Session["nombreConsorcio"] = consorcio.Nombre;
+            int totalRegistros = 0;
+            List<Gasto> gastos = gastoService.PaginarGastos(posicion.GetValueOrDefault(), ref totalRegistros, idConsorcio);
+            ViewBag.TotalRegistros = totalRegistros;
+
+            SetConsorcioBreadcrumbTitle(consorcio.Nombre, null);
 
             return View(gastos);
         }
 
-        public ActionResult ViewCrear()
+        [SiteMapTitle("title")]
+        public ActionResult ViewCrear(string mensaje)
         {
+
+            if (!string.IsNullOrEmpty(mensaje))
+            {
+                ViewBag.mensaje = mensaje;
+            } 
             CargarComboTipoGastoEnViewBag();
             ViewBag.nombreConsorcio = Session["nombreConsorcio"];
+            string accion = "Crear Gasto";
+            string nombreCon = (string)Session["nombreConsorcio"];
+            SetConsorcioBreadcrumbTitle(nombreCon, null);
+            SetGastoBreadcrumbTitle(null, accion);
             return View();
         }
 
@@ -80,11 +108,9 @@ namespace Consorcio.Controllers
                     case "GuardarCrear":
                         gasto.IdConsorcio = int.Parse(idConsorcio);
                         gasto.IdUsuarioCreador = int.Parse(idUser);
-                        gasto.ArchivoComprobante = "/Gastos/" + gasto.ArchivoComprobante;                        
-                        //gastoService.Guardar(gasto);
-                        NuevoGastoOkNotify(gasto.Nombre);
-                        return RedirectToAction("ViewCrear");
-
+                        gasto.ArchivoComprobante = "/Gastos/" + gasto.ArchivoComprobante;
+                        gastoService.Guardar(gasto);
+                        return RedirectToAction("ViewCrear", new {mensaje = "El gasto "+ gasto.Nombre + " creado con éxito" });
 
                  }
             }
@@ -93,16 +119,24 @@ namespace Consorcio.Controllers
             return View("ViewCrear");
         }
 
+        [SiteMapTitle("title")]
         public ActionResult ViewEditar(string id)
         {
             CargarComboTipoGastoEnViewBag();
             ServicioNegocio.EF.Gasto gasto = new ServicioNegocio.EF.Gasto();
             int idGasto = int.Parse((String)id);
-            ViewBag.nombreConsorcio = Session["nombreConsorcio"];           
-
+            ViewBag.nombreConsorcio = Session["nombreConsorcio"];
+             
             gasto = gastoService.Buscar(idGasto);
             Session["archivoComprobante"] = gasto.ArchivoComprobante;
             Session["idGasto"] = id;
+
+            ViewBag.nombreGasto = gasto.Nombre;
+            string accion = "Editando Gasto";
+            string nombreCon = (string)Session["nombreConsorcio"];
+            SetConsorcioBreadcrumbTitle(nombreCon, null);
+            SetGastoBreadcrumbTitle(gasto.Nombre, accion);
+
             return View(gasto);
         }
 
@@ -165,9 +199,47 @@ namespace Consorcio.Controllers
 
         }
 
-        public ActionResult NuevoGastoOkNotify(string nombreGasto)
+        private static void SetConsorcioBreadcrumbTitle(string nombre, string accion)
         {
-            return JavaScript("<script language='javascript' type='text/javascript'>alert('Gasto " + nombreGasto + "creado con éxito');</script>");
+            string nombreConsorcio = nombre;
+            var node = SiteMaps.Current.CurrentNode;
+            if (accion != null)
+            {
+                FindParentNode(node, "ConsorcioX", $"Consorcio \" {nombreConsorcio}\" > {accion} ");
+            }
+            else
+            {
+                FindParentNode(node, "ConsorcioX", $"Consorcio \" {nombreConsorcio}\" ");
+            }
+        }
+ 
+        private static void SetGastoBreadcrumbTitle(string nombre, string accion)
+        {
+            string nombreGasto = nombre;
+            var node = SiteMaps.Current.CurrentNode;
+            if (accion != null)
+            {
+                FindParentNode(node, "GastoX", $"Gasto \"{nombreGasto}\" > {accion}​​​​ ");
+            }
+            else
+            {
+                FindParentNode(node, "GastoX", $"Gasto \"{nombreGasto}​​​​\" ");
+            }
+        }
+ 
+        private static void FindParentNode(ISiteMapNode node, string oldTitle, string newTitle)
+        {
+            if (node.Title == oldTitle)
+            {
+                node.Title = newTitle;
+            }
+            else
+            {
+                if (node.ParentNode != null)
+                {
+                    FindParentNode(node.ParentNode, oldTitle, newTitle);
+                }
+            }
         }
 
 

@@ -3,23 +3,14 @@
 @{
     
     Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
+    ViewBag.Title = "Lista Gastos";
+    int pagina = 1;
+    int i = 0;
 }
 
-<h2>ViewListar</h2>
 
 <section id="listado" class="ta-c">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Mis Consorcios</a></li>
-                        <li class="breadcrumb-item"><a href="#">Consorcio 'Edificio Godoy Cruz'</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Gastos</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
         <div class="row">
             <div class="col-lg-12 mx-auto">
                 <h2>Listado de Gastos</h2>
@@ -51,7 +42,7 @@
                                     <td>@Html.DisplayFor(modelItem => item.FechaGasto)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Monto)</td>
                                     <td><a href="../VerComprobanteDesdeListar/@item.IdGasto" target="_blank"><i class="fas fa-file-download"></i></a></td>
-                                    <th scope="row"> <a><i class="fas fa-times-circle"></i></a></th>
+                                    <th scope="row"> <a href="../ViewEliminarGasto/@item.IdGasto"><i class="fas fa-times-circle"></i></a></th>
 
                                 </tr>
                             }
@@ -59,15 +50,37 @@
                     </table>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">Previous</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
+                            @{int j = 0;
+                                if (j == 0)
+                                {
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                    </li>
+                                }
+                            }
+
+                            @for (i = 0; i < ViewBag.TotalRegistros; i += 4)
+                            {
+                                <li class="page-link">
+                                    @Html.ActionLink(pagina++.ToString(), "Listar", "Gasto", new { posicion = i }, null)
+                                </li>
+                            }
+
+                            @{
+                                if (i == (ViewBag.TotalRegistros - 4))
+                                {
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#">Next</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">Next</a>
+                                    </li>
+                                }
+                            }
+
                         </ul>
                     </nav>
                     <br>

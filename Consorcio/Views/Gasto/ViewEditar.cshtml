@@ -22,7 +22,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-10 mx-auto">
-                <h2>Consorcio 'Edificio Godoy Cruz' - Editando Gasto (nombre de gasto)</h2>
+                <h2>Consorcio 'Edificio Godoy Cruz' - Editando Gasto "@ViewBag.nombreGasto" - Editando</h2>
                 <br>
                 <form class="box-form" action="/gasto/GuardarEdicion" method="post">
                     @Html.AntiForgeryToken()
@@ -118,7 +118,7 @@
                             <button type="submit" name="accion" value="Guardar" class="btn btn-primary">Guardar</button>
                         </div>
                         <div class="col-4">
-                            <a class="btn btn-secondary" href="index.html">Cancelar</a>
+                            <a class="btn btn-secondary" href="/Gasto/listar">Cancelar</a>
                         </div>
                     </div>
                 </form>

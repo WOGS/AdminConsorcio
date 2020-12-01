@@ -20,7 +20,7 @@
         Text = "Seleccione Tipo de Gasto"
     });
 
-    string nombreConsorcio = ViewBag.nombreConsorcio ;
+    string nombreConsorcio = ViewBag.nombreConsorcio;
 }
 <section id="consorcios" class="ta-c">
     <div class="container">
@@ -45,14 +45,14 @@
                             <div class="error" role="alert">
                                 @Html.ValidationMessageFor(Model => Model.IdTipoGasto)
                             </div>
-                        </div>                        
+                        </div>
                         <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Ingrese Nombre">
                             <div class="error" role="alert">
-                                @Html.ValidationMessageFor(Model => Model.Nombre, null, new {@class = "error" })
+                                @Html.ValidationMessageFor(Model => Model.Nombre, null, new { @class = "error" })
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label for="Descripcion" class="col-sm-2 col-form-label">Descripción</label>
@@ -66,7 +66,7 @@
                             <div class="error" role="alert">
                                 @Html.ValidationMessageFor(Model => Model.FechaGasto)
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label for="Expensa" class="col-sm-2 col-form-label">Expensa</label>
@@ -79,8 +79,8 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Mes</div>
                             </div>
-                            <input type="number" class="form-control" id="mesExpensa" name="mesExpensa">                            
-                        </div>                       
+                            <input type="number" class="form-control" id="mesExpensa" name="mesExpensa">
+                        </div>
                     </div>
                     <div class="form-group row">
                         <div class="offset-2 error" role="alert">
@@ -97,7 +97,7 @@
                             <div class="error" role="alert">
                                 @Html.ValidationMessageFor(Model => Model.ArchivoComprobante)
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label for="Monto" class="col-sm-2 col-form-label">Monto</label>
@@ -106,7 +106,7 @@
                             <div class="error" role="alert">
                                 @Html.ValidationMessageFor(Model => Model.Monto)
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                     <br>
                     <br>
@@ -118,7 +118,7 @@
                             <button class="btn btn-warning cw" name="accion" value="GuardarCrear">Guardar y Crear Otro Gasto</button>
                         </div>
                         <div class="col-4">
-                            <a class="btn btn-secondary" href="index.html">Cancelar</a>
+                            <a class="btn btn-secondary" href="../Gasto/Listar">Cancelar</a>
                         </div>
                     </div>
                 </form>
@@ -126,5 +126,13 @@
         </div>
     </div>
 </section>
+<input type="hidden" id="customInput" value="@ViewBag.mensaje" />
 
-
+<script>
+    var customVal = document.getElementById('customInput').value;
+    if (customVal == null) {
+        return;
+    } else {
+        alert(customVal);
+    }
+</script>

@@ -1,0 +1,31 @@
+﻿@model ServicioNegocio.EF.Gasto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Formulario de Alta</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/CSS/Style.css">
+</head>
+<body>
+    <h1>¿Esta seguro que desea eliminar el Gasto?</h1>
+    <div class="form-group">
+        <div>@TempData["idGasto"]</div>
+        <button type="submit" class="btn btn-success btn-lg">
+            <a class="underlineHover" type="" href="/Gasto/Eliminar/@TempData["idGasto"]"> Confirmar</a>
+        </button>
+
+        <button type="button" class="btn btn-success btn-lg">
+            <a class="underlineHover" type="" href="/Gasto/Listar">Cancelar</a>
+        </button>
+    </div>
+</body>
+</html>

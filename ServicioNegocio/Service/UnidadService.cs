@@ -45,7 +45,6 @@ namespace ServicioNegocio.Service
         {
             Unidad unidad = new Unidad();
             unidad = unidadRepository.Buscar(idUnidad);
-
             return unidad;
         }
 

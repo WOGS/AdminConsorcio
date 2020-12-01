@@ -1,16 +1,8 @@
 ﻿@model ServicioNegocio.EF.Unidad
+@*@model Consorcio.Models.UnidadModel*@
 
 @{ Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
 
-    //List<ServicioNegocio.EF.Provincia> provincias = ViewBag.provincias as List<ServicioNegocio.EF.Provincia>;
-
-    //List<SelectListItem> provinciaItems = provincias.Select(o => new SelectListItem()
-    //{
-    //    Text = o.Nombre,
-    //    Value = o.IdProvincia.ToString()
-    //}).ToList();
-
-    //provinciaItems.Insert(0, new SelectListItem() { Value = "", Text = "Seleccione Provincia" });
 }
 <section class="d-flex align-items-center" id="registration-form">
     <div class="container">
@@ -23,25 +15,73 @@
                     <form action="/unidad/GuardarEdicion" method="post">
                         <input type="hidden" name="IdUnidad" value="@Model.IdUnidad" />
 
-                        <div class="form-group">
-                            <label for="unidad nombre">Nombre:</label>
-                            <input type="text" class="form-control" id="Nombre" name="Nombre" value="@Html.DisplayFor(model => model.Nombre)" placeholder="Ingrese Nombre de unidad" required>
+                        @*<div class="form-group">
+            <label for="unidad nombre">Nombre:</label>
+            <input type="text" class="form-control" id="Nombre" name="Nombre" value="@Html.DisplayFor(model => model.Nombre)" placeholder="Ingrese Nombre de unidad" required>
+        </div>*@
+                        <div class="form-group text-black-75 text-left">
+                            <label for="NombreUnidad">Nombre Unidad:</label><br />
+                            @Html.EditorFor(Model => Model.Nombre)
+                            <div class="form-group text-danger">
+                                @Html.ValidationMessageFor(Model => Model.Nombre)
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="nombre">Nombre Propietario:</label>
-                            <input type="text" class="form-control" id="NombrePropietario" name="NombrePropietario" value="@Html.DisplayFor(model => model.NombrePropietario)" placeholder="Ingrese Nompre propietario" required>
+                        @*<div class="form-group">
+            <label for="nombre">Nombre Propietario:</label>
+            <input type="text" class="form-control" id="NombrePropietario" name="NombrePropietario" value="@Html.DisplayFor(model => model.NombrePropietario)" placeholder="Ingrese Nompre propietario" required>
+        </div>*@
+                        <div class="form-group text-black-75 text-left">
+                            <label for="nombre">Nombre Propietario:</label><br />
+                            @Html.EditorFor(Model => Model.NombrePropietario)
+                            <div class="form-group text-danger">
+                                @Html.ValidationMessageFor(Model => Model.NombrePropietario)
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="apellido">Apellido Propietario:</label>
-                            <input type="text" class="form-control" id="ApellidoPropietario" name="ApellidoPropietario" value="@Html.DisplayFor(model => model.ApellidoPropietario)" placeholder="Re-Ingrese Apellido propietario" required>
+                        @*<div class="form-group">
+            <label for="apellido">Apellido Propietario:</label>
+            <input type="text" class="form-control" id="ApellidoPropietario" name="ApellidoPropietario" value="@Html.DisplayFor(model => model.ApellidoPropietario)" placeholder="Re-Ingrese Apellido propietario" required>
+        </div>*@
+                        <div class="form-group text-black-75 text-left">
+                            <label for="ApellidoPropietario">Apellido Propietario:</label><br />
+                            @Html.EditorFor(Model => Model.ApellidoPropietario)
+                            <div class="form-group text-danger">
+                                @Html.ValidationMessageFor(Model => Model.ApellidoPropietario)
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email propietario:</label>
-                            <input type="email" class="form-control" id="EmailPropietario" name="EmailPropietario" value="@Html.DisplayFor(model => model.EmailPropietario)" placeholder="Re-Ingrese Email" required>
+                        @*<div class="form-group">
+            <label for="email">Email propietario:</label>
+            <input type="email" class="form-control" id="EmailPropietario" name="EmailPropietario" value="@Html.DisplayFor(model => model.EmailPropietario)" placeholder="Re-Ingrese Email" required>
+        </div>*@
+                        <div class="form-group text-black-75 text-left">
+                            <label for="EmailPropietario"> Email:</label><br />
+                            @Html.EditorFor(Model => Model.EmailPropietario)
+                            <div class="form-group text-danger">
+                                @Html.ValidationMessageFor(Model => Model.EmailPropietario)
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="superficie">Superficie:</label>
-                            <input type="text" class="form-control" id="Superficie" name="Superficie" value="@Html.DisplayFor(model => model.Superficie)" placeholder="Re-Ingrese Superficie" required>
+                        <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                            <div class="toast-header">
+                                <img src="..." class="rounded mr-2" alt="...">
+                                <strong class="mr-auto">Bootstrap</strong>
+                                <small>11 mins ago</small>
+                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="toast-body">
+                                Hello, world! This is a toast message.
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+            <label for="superficie">Superficie:</label>
+            <input type="text" class="form-control" id="Superficie" name="Superficie" value="@Html.DisplayFor(model => model.Superficie)" placeholder="Re-Ingrese Superficie" required>
+        </div>*@
+                        <div class="form-group text-black-75 text-left">
+                            <label for="Superficie">Superficie(M2):</label><br />
+                            @Html.EditorFor(Model => Model.Superficie)
+                            <div class="form-group text-danger">
+                                @Html.ValidationMessageFor(Model => Model.Superficie)
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-8 offset-2 text-right">

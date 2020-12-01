@@ -40,7 +40,7 @@ namespace Consorcio.Controllers
                 if (Session["idConsorcio"] != null)
                 {
                     id = (string)Session["idConsorcio"];
-                    consorcioEditado = id;
+                   // consorcioEditado = id;
                 }
                 else
                 {
@@ -73,7 +73,7 @@ namespace Consorcio.Controllers
             string nombreCon = (string)Session["nombreConsorcio"];
             SetConsorcioBreadcrumbTitle(nombreCon, null);
             SetUnidadBreadcrumbTitle(null, accion);
-
+           
             return View();
         }
 
@@ -84,30 +84,40 @@ namespace Consorcio.Controllers
             String id = Session["idUser"].ToString();
 
             string vista = "Listar";
+            if (ModelState.IsValid) 
+            { 
+                switch (accion)
+                {
+                    case "Guardar":
+                        unidad.IdUsuarioCreador = int.Parse(id);
+                        unidad.IdConsorcio = int.Parse(idConsorcio);
+                        unidadService.Guardar(unidad);
+                        return RedirectToAction("Listar/"+ idConsorcio);
+                    case "GuardarCrearOtro":
 
-            switch (accion)
-            {
-                case "Guardar":
-                    unidad.IdUsuarioCreador = int.Parse(id);
-                    unidad.IdConsorcio = int.Parse(idConsorcio);
-                    unidadService.Guardar(unidad);
-                    return RedirectToAction("Listar/"+ idConsorcio);
-                case "GuardarCrearOtro":
+                        unidad.IdUsuarioCreador = int.Parse(id);
+                        unidad.IdConsorcio = int.Parse(idConsorcio);
+                        unidadService.Guardar(unidad);                       
 
-                    unidad.IdUsuarioCreador = int.Parse(id);
-                    unidad.IdConsorcio = int.Parse(idConsorcio);
-                    unidadService.Guardar(unidad);                       
-
-                    return RedirectToAction("ViewCrear");
+                        return RedirectToAction("ViewCrear");
+                }
             }
-
             return RedirectToAction(vista);
         }
 
-        public ActionResult ViewEliminar(int idUnidad)
+        public ActionResult ViewEliminarUnidad(string id)
         {
-            unidadService.Eliminar(idUnidad);
 
+            TempData["idUnidad"] = id;
+
+            return View();
+        }
+
+        public ActionResult Eliminar(String id)
+        {    
+            int idUnidad = int.Parse((String)id);
+            unidadService.Eliminar(idUnidad);
+       
             return RedirectToAction("Listar");
         }
 
@@ -132,13 +142,19 @@ namespace Consorcio.Controllers
         public ActionResult GuardarEdicion(ServicioNegocio.EF.Unidad unidad)
         {
             Unidad unidadEditada = unidadService.Buscar(unidad.IdUnidad);
+            if (ModelState.IsValid)
+            {
+               
             unidadService.Editar(unidad);
-
-            return RedirectToAction(actionName: "Listar/" + unidadEditada.IdConsorcio.ToString());
+       
+            
+            }
+       return RedirectToAction(actionName: "Listar/" + unidadEditada.IdConsorcio.ToString());
         }
 
         private static void SetConsorcioBreadcrumbTitle(string nombre, string accion)
         {
+            
             string nombreConsorcio = nombre;
             var node = SiteMaps.Current.CurrentNode;
             if (accion != null)

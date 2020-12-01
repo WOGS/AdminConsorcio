@@ -273,6 +273,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ConsorcioModel.cs" />
+    <Compile Include="Models\GastoModel.cs" />
     <Compile Include="Models\UnidadModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -319,7 +320,7 @@
     <Content Include="Views\Unidad\Listar.cshtml" />
     <Content Include="Views\Unidad\ViewEditar.cshtml" />
     <Content Include="Views\Unidad\ViewCrear.cshtml" />
-    <Content Include="Views\Unidad\ViewEliminar.cshtml" />
+    <Content Include="Views\Unidad\ViewEliminarUnidad.cshtml" />
     <Content Include="Views\Gasto\Listar.cshtml" />
     <Content Include="Views\Gasto\ViewCrear.cshtml" />
     <Content Include="Views\Gasto\ViewEditar.cshtml" />
@@ -333,6 +334,7 @@
     <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
     <Content Include="Views\Shared\_BootstrapSiteMapPathHelperModel.cshtml" />
+    <Content Include="Views\Gasto\ViewEliminarGasto.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

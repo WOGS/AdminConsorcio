@@ -58,6 +58,17 @@ namespace ServicioNegocio.Repository
             contexto.SaveChanges();
         }
 
+        public void Eliminar(int idGasto)
+        {
+            Gasto gasto = ObtenerPorId(idGasto);
+            if (gasto != null)
+            {
+                contexto.Gasto.Remove(gasto);
+            }
+
+            contexto.SaveChanges();
+        }
+
 
 
     }

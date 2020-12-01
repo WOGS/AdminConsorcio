@@ -8,6 +8,7 @@ namespace Consorcio.Models
 {
     public class UnidadModel
     {
+        public int IdUnidad { get; set; }
         [Required(ErrorMessage = "Ingresar nombre")]
         public string Nombre { get; set; }
 

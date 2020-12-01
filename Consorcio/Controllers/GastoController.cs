@@ -169,5 +169,22 @@ namespace Consorcio.Controllers
         {
             return JavaScript("<script language='javascript' type='text/javascript'>alert('Gasto " + nombreGasto + "creado con éxito');</script>");
         }
+
+
+        public ActionResult ViewEliminarGasto(string id)
+        {
+
+            TempData["idGasto"] = id;
+
+            return View();
+        }
+        public ActionResult Eliminar(string id)
+        {
+            int idGasto = int.Parse((String)id);
+
+            consorcioService.Eliminar(idGasto);
+
+            return RedirectToAction("Listar");
+        }
     }
 }

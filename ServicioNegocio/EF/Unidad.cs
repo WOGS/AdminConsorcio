@@ -11,15 +11,27 @@ namespace ServicioNegocio.EF
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Unidad
     {
         public int IdUnidad { get; set; }
         public int IdConsorcio { get; set; }
+
+        [Required(ErrorMessage = "Ingresar nombre")]
         public string Nombre { get; set; }
+
+        [Required(ErrorMessage = "Ingresar nombre del propietario")]
         public string NombrePropietario { get; set; }
+
+        [Required(ErrorMessage = "Ingresar apellido del propietario")]
         public string ApellidoPropietario { get; set; }
+
+        [Required(ErrorMessage = "Ingresar un Email")]
+        [EmailAddress(ErrorMessage = "Ingresar un Email valido")]
         public string EmailPropietario { get; set; }
+        [Required(ErrorMessage = "Ingresar superficie")]
+        [Range(1, 1000, ErrorMessage = "Ingresar una superficie correcta")]
         public Nullable<int> Superficie { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public int IdUsuarioCreador { get; set; }

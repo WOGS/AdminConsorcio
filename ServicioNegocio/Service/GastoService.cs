@@ -40,7 +40,10 @@ namespace ServicioNegocio.Service
         {
             gastoRepository.Editar(gasto);
         }
-
+        public void Eliminar(int idGasto)
+        {
+            gastoRepository.Eliminar(idGasto);
+        }
 
     }
 }

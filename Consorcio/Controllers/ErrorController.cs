@@ -9,13 +9,13 @@ namespace Consorcio.Controllers
     public class ErrorController : Controller
     {
         // GET: Error
-        public ActionResult Index(int error=0)
+        public ActionResult Index(int error=500)
         {
             switch (error)
             {
                 case 404:
                     ViewBag.Title = "Ocurrio un error inesperado";
-                    ViewBag.Description = "Esto es muy vergonzoso, esperemos que no vuelva a pasar ..";
+                    ViewBag.Description = "Esto es muy vergonzoso, esperemos que no vuelva a pasar";
                     break;
 
                 case 500:
@@ -25,7 +25,7 @@ namespace Consorcio.Controllers
 
                 default:
                     ViewBag.Title = "Página no encontrada";
-                    ViewBag.Description = "Algo salio muy mal :( ..";
+                    ViewBag.Description = "Algo salio muy mal";
                     break;
             }
 

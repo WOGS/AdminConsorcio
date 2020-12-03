@@ -9,7 +9,7 @@ namespace Consorcio.Controllers
     public class ErrorController : Controller
     {
         // GET: Error
-        public ActionResult Index(int error)
+        public ActionResult Index(int error=0)
         {
             switch (error)
             {

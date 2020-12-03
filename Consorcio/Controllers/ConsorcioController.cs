@@ -17,6 +17,7 @@ namespace Consorcio.Controllers
 {
     public class ConsorcioController : Controller
     {
+   
         ConsorcioService consorcioService;
         ProvinciaService provinciaService;
 
@@ -29,14 +30,18 @@ namespace Consorcio.Controllers
         // GET: Consorcio
         public ActionResult Listar(int? posicion)
         {
+            
+           if (Session["idUser"]=="")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             if (posicion == null)
             {
             Session["idConsorcio"] = null;
                 posicion = 0;
             }
             
-
-
             int id = (int)Session["idUser"];
             Session["listaProvincias"] = "";
 
@@ -55,6 +60,16 @@ namespace Consorcio.Controllers
         [SiteMapTitle("title")]
         public ActionResult ViewCrear()
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
+
+            if (String.IsNullOrEmpty(Session["idUser"].ToString()))
+            {
+                return Redirect("/Home/Ingresar");
+            }
             ViewBag.provincias = Session["listaProvincias"];
 
             SetConsorcioBreadcrumbTitle("Nuevo Consoricio", null);
@@ -64,10 +79,16 @@ namespace Consorcio.Controllers
 
             return View(consorcioModel);
         }
+        
 
         [HttpPost]
         public ActionResult Guardar(Models.ConsorcioModel consorcio, string accion)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             int id = (int)Session["idUser"];
             string vista = "Listar";
 
@@ -99,6 +120,11 @@ namespace Consorcio.Controllers
 
         public ActionResult ViewEliminarConsorcio(string id)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
 
             TempData["idConsorcio"] = id;
 
@@ -106,6 +132,11 @@ namespace Consorcio.Controllers
         }
         public ActionResult Eliminar(string id)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             int idConsorcio = int.Parse((String)id);
 
             consorcioService.Eliminar(idConsorcio);
@@ -116,6 +147,12 @@ namespace Consorcio.Controllers
         [SiteMapTitle("title")]
         public ActionResult ViewEditar(string id)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
+
             if (Session["idConsorcio"]!=null)
             {
                 id = (string)Session["idConsorcio"];
@@ -142,6 +179,12 @@ namespace Consorcio.Controllers
         [HttpPost]
         public ActionResult GuardarEdicion(ServicioNegocio.EF.Consorcio consorcio)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
+
             int id = (int)Session["idUser"];
             consorcio.IdUsuarioCreador = id;
 
@@ -152,6 +195,11 @@ namespace Consorcio.Controllers
 
         public ActionResult Expensas(string id)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             var url = $"https://localhost:44321/api/Expensa/" + id;
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";

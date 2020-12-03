@@ -27,6 +27,11 @@ namespace Consorcio.Controllers
         [SiteMapTitle("title")]
         public ActionResult Listar(string id, int? posicion)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             string consorcioEditado = "";
             ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
             if (posicion == null)
@@ -67,6 +72,11 @@ namespace Consorcio.Controllers
         [SiteMapTitle("title")]
         public ActionResult ViewCrear()
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             string accion = "Crear Unidad";
             string nombreCon = (string)Session["nombreConsorcio"];
             SetConsorcioBreadcrumbTitle(nombreCon, null);
@@ -78,6 +88,11 @@ namespace Consorcio.Controllers
         [HttpPost]
         public ActionResult Guardar(ServicioNegocio.EF.Unidad unidad, string accion)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             String idConsorcio = Session["idConsorcio"].ToString();
             String id = Session["idUser"].ToString();
 
@@ -105,6 +120,11 @@ namespace Consorcio.Controllers
 
         public ActionResult ViewEliminarUnidad(string id)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
 
             TempData["idUnidad"] = id;
 
@@ -112,7 +132,12 @@ namespace Consorcio.Controllers
         }
 
         public ActionResult Eliminar(String id)
-        {    
+        {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             int idUnidad = int.Parse((String)id);
             unidadService.Eliminar(idUnidad);
        
@@ -122,6 +147,11 @@ namespace Consorcio.Controllers
         [SiteMapTitle("title")]
         public ActionResult ViewEditar(string id)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             ServicioNegocio.EF.Unidad unidad = new ServicioNegocio.EF.Unidad();
             int idUnidad = int.Parse((String)id);
 
@@ -139,6 +169,11 @@ namespace Consorcio.Controllers
         [HttpPost]
         public ActionResult GuardarEdicion(ServicioNegocio.EF.Unidad unidad)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             Unidad unidadEditada = unidadService.Buscar(unidad.IdUnidad);
             if (ModelState.IsValid)
             {

@@ -14,6 +14,7 @@ namespace Consorcio.Controllers
         // GET: Home
         public ActionResult Inicio()
         {
+            Session["idUser"] = "";
             return View();
         }
 

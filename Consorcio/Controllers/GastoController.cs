@@ -30,6 +30,11 @@ namespace Consorcio.Controllers
         [SiteMapTitle("title")]
         public ActionResult Listar(string id, int? posicion)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
 
             if (id != null)
@@ -68,6 +73,11 @@ namespace Consorcio.Controllers
         [SiteMapTitle("title")]
         public ActionResult ViewCrear(string mensaje)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
 
             if (!string.IsNullOrEmpty(mensaje))
             {
@@ -91,6 +101,11 @@ namespace Consorcio.Controllers
         [HttpPost]
         public ActionResult Guardar(ServicioNegocio.EF.Gasto gasto, string accion)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             String idConsorcio = Session["idConsorcio"].ToString();
             String idUser = Session["idUser"].ToString();
 
@@ -122,6 +137,11 @@ namespace Consorcio.Controllers
         [SiteMapTitle("title")]
         public ActionResult ViewEditar(string id)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             CargarComboTipoGastoEnViewBag();
             ServicioNegocio.EF.Gasto gasto = new ServicioNegocio.EF.Gasto();
             int idGasto = int.Parse((String)id);
@@ -143,6 +163,11 @@ namespace Consorcio.Controllers
         [HttpPost]
         public ActionResult GuardarEdicion(ServicioNegocio.EF.Gasto gasto, string accion)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             String idConsorcio = Session["idConsorcio"].ToString();
             String idUser = Session["idUser"].ToString();
             String archivoComprobante = Session["archivoComprobante"].ToString();
@@ -173,7 +198,12 @@ namespace Consorcio.Controllers
         }
 
         public ActionResult VerComprobante(string archivoComprobante)
-        {           
+        {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
 
             string filename = archivoComprobante;
             string filepath = System.Web.HttpContext.Current.Server.MapPath("~") + filename;
@@ -192,6 +222,11 @@ namespace Consorcio.Controllers
 
         public ActionResult VerComprobanteDesdeListar(string id)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             ServicioNegocio.EF.Gasto gasto = new ServicioNegocio.EF.Gasto();
             int idGasto = int.Parse((String)id);
             gasto = gastoService.Buscar(idGasto);
@@ -245,13 +280,22 @@ namespace Consorcio.Controllers
 
         public ActionResult ViewEliminarGasto(string id)
         {
-
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             TempData["idGasto"] = id;
 
             return View();
         }
         public ActionResult Eliminar(string id)
         {
+            if (Session["idUser"] == "")
+            {
+                Session["MsjError"] = "Debe iniciar session";
+                return Redirect("/Home/inicio");
+            }
             int idGasto = int.Parse((String)id);
 
             gastoService.Eliminar(idGasto);

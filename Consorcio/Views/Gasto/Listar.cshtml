@@ -76,12 +76,7 @@
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
                             @{int j = 0;
-                                if (j == 0)
-                                {
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                    </li>
-                                }
+
                             }
 
                             @for (i = 0; i < ViewBag.TotalRegistros; i += 4)
@@ -91,20 +86,6 @@
                                 </li>
                             }
 
-                            @{
-                                if (i == (ViewBag.TotalRegistros - 4))
-                                {
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                }
-                            }
 
                         </ul>
                     </nav>

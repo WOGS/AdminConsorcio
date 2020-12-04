@@ -129,10 +129,14 @@
 <input type="hidden" id="customInput" value="@ViewBag.mensaje" />
 
 <script>
-    var customVal = document.getElementById('customInput').value;
-    if (customVal == null) {
-        return;
-    } else {
-        alert(customVal);
+    window.onload = gastoCreado;
+
+    function gastoCreado() {
+        var customVal = document.getElementById('customInput').value;
+        if (customVal != "") {
+            alert(customVal);
+        } else {
+            return;
+        }
     }
 </script>

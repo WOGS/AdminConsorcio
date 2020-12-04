@@ -34,7 +34,7 @@ namespace Consorcio.Controllers
            if (Session["idUser"]=="")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
             if (posicion == null)
             {
@@ -63,7 +63,7 @@ namespace Consorcio.Controllers
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
 
             if (String.IsNullOrEmpty(Session["idUser"].ToString()))
@@ -87,7 +87,7 @@ namespace Consorcio.Controllers
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
             int id = (int)Session["idUser"];
             string vista = "Listar";
@@ -96,7 +96,7 @@ namespace Consorcio.Controllers
 
             consorcioEF.Nombre = consorcio.Nombre;
             consorcioEF.IdUsuarioCreador = id;
-            consorcioEF.Altura = consorcio.Altura;
+            consorcioEF.Altura = int.Parse(consorcio.Altura);
             consorcioEF.Calle = consorcio.Calle;
             consorcioEF.Ciudad = consorcio.Ciudad;
             consorcioEF.DiaVencimientoExpensas = consorcio.DiaVencimientoExpensas;
@@ -123,7 +123,7 @@ namespace Consorcio.Controllers
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
 
             TempData["idConsorcio"] = id;
@@ -135,7 +135,7 @@ namespace Consorcio.Controllers
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
             int idConsorcio = int.Parse((String)id);
 
@@ -150,7 +150,7 @@ namespace Consorcio.Controllers
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
 
             if (Session["idConsorcio"]!=null)
@@ -182,7 +182,7 @@ namespace Consorcio.Controllers
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
 
             int id = (int)Session["idUser"];
@@ -198,7 +198,7 @@ namespace Consorcio.Controllers
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
             var url = $"https://localhost:44321/api/Expensa/" + id;
             var request = (HttpWebRequest)WebRequest.Create(url);
@@ -220,6 +220,12 @@ namespace Consorcio.Controllers
                     }
                 }
             }
+
+            ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
+            int idConsorcio = int.Parse((String)id);
+            consorcio = consorcioService.Buscar(idConsorcio);
+            SetConsorcioBreadcrumbTitle(consorcio.Nombre, null);
+
             return View(result);
         }
 
@@ -229,7 +235,14 @@ namespace Consorcio.Controllers
             string nombreConsorcio = nombre;
             var node = SiteMaps.Current.CurrentNode;
 
-            FindParentNode(node, "ConsorcioX", $"Consorcio \"{nombreConsorcio}\" > {accion} "); 
+            if (accion != null)
+            {
+                FindParentNode(node, "ConsorcioX", $"Consorcio \"{nombreConsorcio}\" > {accion} ");
+            }
+            else
+            {
+                FindParentNode(node, "ConsorcioX", $"Consorcio \"{nombreConsorcio}\" ");
+            }
         }
 
         private static void FindParentNode(ISiteMapNode node, string oldTitle, string newTitle)
@@ -246,6 +259,8 @@ namespace Consorcio.Controllers
                 }
             }
         }
+
+
 
     }
 }

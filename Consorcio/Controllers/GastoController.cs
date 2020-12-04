@@ -33,7 +33,7 @@ namespace Consorcio.Controllers
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
             ServicioNegocio.EF.Consorcio consorcio = new ServicioNegocio.EF.Consorcio();
 
@@ -76,7 +76,7 @@ namespace Consorcio.Controllers
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
 
             if (!string.IsNullOrEmpty(mensaje))
@@ -104,7 +104,7 @@ namespace Consorcio.Controllers
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
             String idConsorcio = Session["idConsorcio"].ToString();
             String idUser = Session["idUser"].ToString();
@@ -125,9 +125,9 @@ namespace Consorcio.Controllers
                         gasto.IdUsuarioCreador = int.Parse(idUser);
                         gasto.ArchivoComprobante = "/Gastos/" + gasto.ArchivoComprobante;
                         gastoService.Guardar(gasto);
-                        return RedirectToAction("ViewCrear", new {mensaje = "El gasto "+ gasto.Nombre + " creado con éxito" });
+                        return RedirectToAction("ViewCrear", new { mensaje = "El gasto " + gasto.Nombre + " creado con éxito" });
 
-                 }
+                }
             }
             ViewBag.nombreConsorcio = Session["nombreConsorcio"];
             CargarComboTipoGastoEnViewBag();
@@ -140,7 +140,7 @@ namespace Consorcio.Controllers
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
             CargarComboTipoGastoEnViewBag();
             ServicioNegocio.EF.Gasto gasto = new ServicioNegocio.EF.Gasto();
@@ -166,7 +166,7 @@ namespace Consorcio.Controllers
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
             String idConsorcio = Session["idConsorcio"].ToString();
             String idUser = Session["idUser"].ToString();
@@ -202,7 +202,7 @@ namespace Consorcio.Controllers
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
 
             string filename = archivoComprobante;
@@ -225,7 +225,7 @@ namespace Consorcio.Controllers
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
             ServicioNegocio.EF.Gasto gasto = new ServicioNegocio.EF.Gasto();
             int idGasto = int.Parse((String)id);
@@ -283,7 +283,7 @@ namespace Consorcio.Controllers
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
             TempData["idGasto"] = id;
 
@@ -294,7 +294,7 @@ namespace Consorcio.Controllers
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
-                return Redirect("/Home/inicio");
+                return Redirect("/Home/ingresar");
             }
             int idGasto = int.Parse((String)id);
 

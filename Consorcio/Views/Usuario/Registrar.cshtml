@@ -1,10 +1,9 @@
 ﻿@model Consorcio.Models.UsuarioModel
 @{
-    ViewBag.Title = "Registrarse";
-    Layout = "~/Views/Shared/_LayoutInicial.cshtml";
+        ViewBag.Title = "Registrarse";
+        Layout = "~/Views/Shared/_LayoutInicial.cshtml";
 }
 
-<!DOCTYPE html>
 <div class="col-lg-6">
     <div class="card2 card  px-4 py-5">
         <h2><b>Registrarse</b></h2>
@@ -19,16 +18,17 @@
             </div>
             <div class="form-group text-black-75 text-left">
                 <label for="NombreUnidad">Ingresar Contraseña:</label><br />
-                @Html.EditorFor(Model => Model.Password)
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Ingrese Contraseña" })
                 <div class="form-group text-danger">
                     @Html.ValidationMessageFor(Model => Model.Password)
                 </div>
             </div>
-            <div class="row px-3">
-                <label class="col-form-label">
-                    <h6 class="">Reingresar Contraseña</h6>
-                </label>
-                <input type="password" id="Password2" class="form-control" name="Password2" placeholder="Reingrese Contraseña">
+            <div class="form-group text-black-75 text-left">
+                <label for="NombreUnidad">Reingresar Contraseña:</label><br />
+                @Html.PasswordFor(model => model.RePassword, new { @class = "form-control", placeholder = "Reingrese Contraseña" })
+                <div class="form-group text-danger">
+                    @Html.ValidationMessageFor(Model => Model.RePassword)
+                </div>
             </div>
             <br>
             <div class="row mb-3 px-3">
@@ -38,5 +38,3 @@
         </form>
     </div>
 </div>
-
-

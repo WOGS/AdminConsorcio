@@ -15,5 +15,10 @@ namespace Consorcio.Models
         [Required(ErrorMessage = "Ingresar una contraseña")]
         public string Password { get; set; }
 
+        [Required(ErrorMessage = "Reingresar Contraseña es requerido")]
+        [Compare("Password", ErrorMessage = "Las Contraseña deben coincidir")]
+        [Display(Name = "Reingresar Contraseña")]
+        public string RePassword { get; set; }
+
     }
 }

@@ -22,9 +22,8 @@ namespace Consorcio.Models
         [EmailAddress(ErrorMessage ="Ingresar un Email valido")]
         public string EmailPropietario { get; set; }
 
-        [Required(ErrorMessage = "Ingresar superficie")]
-        [Range(1, 1000, ErrorMessage = "Ingresar una superficie correcta")]
-        public int Superficie { get; set; }
+        [Range(1, 1000, ErrorMessage = "Ingresar una superficie entre 1 y 1000")]
+        public string Superficie { get; set; }
 
     }
 }

@@ -30,8 +30,8 @@ namespace ServicioNegocio.EF
         [Required(ErrorMessage = "Ingresar un Email")]
         [EmailAddress(ErrorMessage = "Ingresar un Email valido")]
         public string EmailPropietario { get; set; }
-        [Required(ErrorMessage = "Ingresar superficie")]
-        [Range(1, 1000, ErrorMessage = "Ingresar una superficie correcta")]
+        //[Required(ErrorMessage = "Ingresar superficie")]
+        //[Range(1, 1000, ErrorMessage = "Ingresar una superficie correcta")]
         public Nullable<int> Superficie { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public int IdUsuarioCreador { get; set; }

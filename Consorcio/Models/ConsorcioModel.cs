@@ -24,10 +24,11 @@ namespace Consorcio.Models
         public string Calle { get; set; }
 
         [Required(ErrorMessage = "Ingresar altura")]
-        public int Altura { get; set; }
+        [RegularExpression(".[0-9].", ErrorMessage = "Debe utilizar numeros")]
+        public string Altura { get; set; }
 
         [Required(ErrorMessage = "Ingresar dia de vencimiento de expensas")]
-        [Range(1, 31, ErrorMessage = "Ingresar una fecha correcto")]
+        [Range(1, 28, ErrorMessage = "Ingresar una fecha correcto")]
         public int DiaVencimientoExpensas { get; set; }
 
         public List<Provincia> provincias { get; set; }

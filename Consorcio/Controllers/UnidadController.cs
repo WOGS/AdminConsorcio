@@ -70,13 +70,18 @@ namespace Consorcio.Controllers
         }
 
         [SiteMapTitle("title")]
-        public ActionResult ViewCrear()
+        public ActionResult ViewCrear(string mensaje)
         {
             if (Session["idUser"] == "")
             {
                 Session["MsjError"] = "Debe iniciar session";
                 return Redirect("/Home/ingresar");
             }
+            if (!string.IsNullOrEmpty(mensaje))
+            {
+                ViewBag.mensaje = mensaje;
+            }
+
             string accion = "Crear Unidad";
             string nombreCon = (string)Session["nombreConsorcio"];
             SetConsorcioBreadcrumbTitle(nombreCon, null);

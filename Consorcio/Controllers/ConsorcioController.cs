@@ -58,7 +58,7 @@ namespace Consorcio.Controllers
         }
 
         [SiteMapTitle("title")]
-        public ActionResult ViewCrear()
+        public ActionResult ViewCrear(string mensaje)
         {
             if (Session["idUser"] == "")
             {
@@ -70,6 +70,11 @@ namespace Consorcio.Controllers
             {
                 return Redirect("/Home/Ingresar");
             }
+            if (!string.IsNullOrEmpty(mensaje))
+            {
+                ViewBag.mensaje = mensaje;
+            }
+
             ViewBag.provincias = Session["listaProvincias"];
 
             SetConsorcioBreadcrumbTitle("Nuevo Consoricio", null);
@@ -109,7 +114,7 @@ namespace Consorcio.Controllers
                     return RedirectToAction("Listar");
 
                 case "GuardarCrear":
-                    return RedirectToAction("ViewCrear");
+                    return RedirectToAction("ViewCrear", new { mensaje = "El Consorcio " + consorcio.Nombre + " creado con éxito" });
 
                 case "GuardarCrearUnidad":
                     Session["idConsorcio"] = idNuevoConsorcio;

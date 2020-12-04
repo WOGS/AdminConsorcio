@@ -81,4 +81,16 @@
         </div>
     </div>
 </section>
+<input type="hidden" id="customInput" value="@ViewBag.mensaje" />
+<script>
+    window.onload = unidadCreada;
 
+    function unidadCreada() {
+        var customVal = document.getElementById('customInput').value;
+        if (customVal != "") {
+            alert(customVal);
+        } else {
+            return;
+        }
+    }
+</script>

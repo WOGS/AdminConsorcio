@@ -51,7 +51,7 @@
                             <div class="row">
                                 <div class="col-10 text-right">
                                     <button type="submit" class="btn btn-primary btnForm" name="accion" value="Guardar">Guardar</button>
-                                    <button type="submit" class="btn btn-primary btnForm" name="accion" value="GuardarCrearOtro">Guardar y crear otro</button>
+                                    <button type="submit" class="btn btn-primary btnForm" name="accion" value="GuardarCrear">Guardar y crear otro</button>
                                     <button type="button" class="btn btn-primary btnForm">
                                         <a class="" href="../Unidad/Listar">Cancelar</a>
                                     </button>
@@ -64,6 +64,7 @@
         </div>
     </div>
 </section>
+<input type="hidden" id="customInput" value="@ViewBag.mensaje" />
 <script>
     window.onload = unidadCreada;
 

@@ -5,18 +5,12 @@
 }
 
 <section id="listado" class="ta-c">
-    <body>
-        <h1>¿Esta seguro que desea eliminar la Unidad?</h1>
-        <div class="form-group">
-            <div hidden>@TempData["idUnidad"]</div>
-            <button type="submit" class="btn btn-success btn-lg">
-                <a class="underlineHover" type="" href="/Unidad/Eliminar/@TempData["idUnidad"]"> Confirmar</a>
-            </button>
 
-            <button type="button" class="btn btn-success btn-lg">
-                <a class="underlineHover" type="" href="/Unidad/Listar">Cancelar</a>
-            </button>
-        </div>
-    </body>
+    <h1>¿Esta seguro que desea eliminar la Unidad?</h1>
+    <div class="form-group">
+        <div hidden>@TempData["idUnidad"]</div>
+        <a class="underlineHover btn-primary btn-lg" type="button" href="/Unidad/Eliminar/@TempData["idUnidad"]"> Confirmar</a>
+        <a class="underlineHover btn-primary btn-lg" type="button" href="/Unidad/Listar">Cancelar</a>
+    </div>
 
-    </section>
+</section>

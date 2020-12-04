@@ -3,17 +3,12 @@
         Layout = "~/Views/Shared/_LayoutEliminar.cshtml";
 }
 <section id="listado" class="ta-c">
-    <body>
-        <h1>¿Esta seguro que desea eliminar el Gasto?</h1>
-        <div  class="form-group">
-            <div hidden>@TempData["idGasto"]</div>
-            <button type="submit" class="btn btn-success btn-lg">
-                <a class="underlineHover" type="" href="/Gasto/Eliminar/@TempData["idGasto"]"> Confirmar</a>
-            </button>
 
-            <button type="button" class="btn btn-success btn-lg">
-                <a class="underlineHover" type="" href="/Gasto/Listar">Cancelar</a>
-            </button>
-        </div>
-    </body>
-    </section>
+    <h1>¿Esta seguro que desea eliminar el Gasto?</h1>
+    <div class="form-group">
+        <div hidden>@TempData["idGasto"]</div>
+        <a class="underlineHover btn-primary btn-lg" type="button" href="/Gasto/Eliminar/@TempData["idGasto"]"> Confirmar</a>
+        <a class="underlineHover btn-primary btn-lg" type="button"  href="/Gasto/Listar">Cancelar</a>
+    </div>
+
+</section>
